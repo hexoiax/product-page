@@ -1,231 +1,292 @@
 <style>
 :root {
-  --pastel-1: #ffe7c7;
-  --pastel-2: #e8fff4;
   --green-main: #2ECC71;
   --green-dark: #1FA85C;
-
-  /* Interaction */
-  --fade-up: 20px;
-  --fade-time: .45s;
+  --pastel-1: #ffe7c7;
+  --pastel-2: #e8fff4;
 }
 
-/* Fade-in on scroll */
-.fade-up {
+/* ===============================
+   FIX MOBILE + GOOGLE SITES
+================================ */
+html, body {
+  overflow-x: hidden !important;
+}
+
+.product-intro, .product-info, .product-image img {
+  max-width: 100% !important;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Fade-in */
+.fade {
   opacity: 0;
-  transform: translateY(var(--fade-up));
-  transition: opacity var(--fade-time) ease, transform var(--fade-time) ease;
+  animation: fadeIn 1s ease forwards;
 }
-.fade-up.show {
-  opacity: 1;
-  transform: translateY(0);
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-/* GENERAL */
+/* Layout */
 .product-intro {
   display: flex;
-  gap: 40px;
-  padding: 40px;
+  gap: 30px;
+  padding: 35px;
+  border-radius: 18px;
   background: #f8fff9;
-  font-family: system-ui,-apple-system,Segoe UI,sans-serif;
-  align-items: flex-start;
+  font-family: system-ui, sans-serif;
   max-width: 1100px;
   margin: auto;
-  border-radius: 18px;
-  box-shadow: 0 12px 30px rgba(15,23,42,0.08);
-  transition: 0.35s ease;
-}
-.product-intro:hover {
-  box-shadow: 0 18px 45px rgba(15,23,42,0.12);
+  box-shadow: 0 6px 25px rgba(0,0,0,0.08);
 }
 
+/* Image */
 .product-image img {
-  width: 460px;
+  width: 430px;
   border-radius: 18px;
   box-shadow: 0 10px 25px rgba(0,0,0,0.10);
-  transition: 0.35s ease;
+  transition: .3s ease;
 }
-.product-image img:hover {
-  transform: scale(1.03);
-}
+.product-image img:hover { transform: scale(1.03); }
 
-/* RIGHT SIDE */
-.product-info { width: 100%; }
-
-/* BADGE */
-.badge-pastel {
+/* Badge pastel giữ nguyên */
+.badge {
   display: inline-flex;
-  align-items: center;
   gap: 6px;
   padding: 6px 14px;
   border-radius: 999px;
   background: radial-gradient(circle at top left, var(--pastel-1), var(--pastel-2));
+  box-shadow: 0 6px 14px rgba(0,0,0,0.08);
   font-size: 13px;
+  margin-bottom: 8px;
   font-weight: 600;
   color: #374151;
-  box-shadow: 0 6px 14px rgba(0,0,0,0.08);
-  margin-bottom: 12px;
-  transition: 0.25s ease;
-}
-.badge-pastel:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
 }
 
-/* TITLE */
-.product-title {
-  font-size: 26px;
-  font-weight: 700;
-  color: #064e3b;
-  margin-bottom: 6px;
-}
-
-/* RATING */
-.rating-line { 
-  display: flex; 
-  align-items: center; 
+/* Rating */
+.rating-line {
+  display: flex;
   gap: 6px;
+  align-items: center;
   font-size: 15px;
+  font-weight: 600;
   color: #166534;
   margin-bottom: 18px;
 }
-.star-icon { color: var(--green-main); }
+.star-icon {
+  font-size: 18px;
+  color: #FBBF24 !important; /* ⭐ MÀU VÀNG */
+}
 
-/* PRICE */
+/* Price */
 .price-box {
   display: flex;
-  align-items: center;
   gap: 12px;
-  margin-bottom: 22px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.final-price { font-size: 32px; font-weight: 800; color: #065f46; }
+.original-price { text-decoration: line-through; color: #6b7280; }
+.discount-red {
+  padding: 4px 10px;
+  background: #fee2e2;
+  color: #b91c1c;
+  border-radius: 999px;
+  font-weight: 700;
 }
 
-.final-price {
-  font-size: 32px;
-  font-weight: 800;
-  color: #065f46;
-}
-
-/* GIFT */
+/* Gift */
 .gift-box {
   background: #f0fff4;
-  padding: 14px 16px;
-  border-radius: 14px;
-  margin-bottom: 10px;
-  font-size: 14px;
+  padding: 14px;
   border: 1px dashed var(--green-main);
+  border-radius: 14px;
+  margin-bottom: 14px;
+  font-size: 14px;
   color: #166534;
-  transition: .25s ease;
-}
-.gift-box:hover {
-  background: #eafff0;
-  transform: translateY(-2px);
 }
 
-/* ORDER BUTTON */
-.order-btn-green {
-  background: linear-gradient(90deg,#2ECC71,#1FA85C);
-  padding: 20px 28px;
-  border-radius: 45px;
+/* Notice */
+.notice {
+  font-size: 14px;
+  margin-bottom: 28px;
+  font-weight: 600;
+  color: #064e3b;
+}
+
+/* Order Button – đặt giữa */
+.order-btn-wrapper {
   text-align: center;
+  margin-top: 10px;
+}
+
+.order-btn {
+  background: linear-gradient(90deg,#2ECC71,#1FA85C);
+  padding: 18px 26px;
+  border-radius: 45px;
   color: white;
   font-weight: 700;
-  max-width: 460px;
-  margin: auto;
-  box-shadow: 0 10px 24px rgba(31,168,92,0.45);
   cursor: pointer;
-  transition: 0.25s ease;
-}
-.order-btn-green:hover {
-  transform: translateY(-4px) scale(1.02);
-  box-shadow: 0 16px 32px rgba(31,168,92,0.6);
-}
-.order-btn-green:active {
-  transform: scale(.96);
+  display: inline-block;
+  box-shadow: 0 8px 22px rgba(31,168,92,0.45);
+  transition: .3s ease;
+  text-align: center;
 }
 
-/* GUARANTEE */
-.guarantee { text-align: center; }
+.order-btn:hover { transform: translateY(-4px); }
 
-/* POPUP OVERLAY */
-.order-form-overlay {
+.btn-title {
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.btn-sub {
+  font-size: 13px;
+  opacity: 0.95;
+  margin-top: 2px;
+  font-weight: 500;
+}
+
+/* Guarantee */
+.guarantee {
+  text-align: center;
+  font-size: 13px;
+  margin-top: 20px;
+  color: #166534;
+  font-style: italic;
+}
+
+/* Popup NO-JS */
+#popup-toggle { display: none; }
+
+.popup-overlay {
   position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
+  inset: 0;
   background: rgba(0,0,0,0.55);
-  display: none;
+  display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 99999;
   opacity: 0;
-  transition: .35s ease;
+  pointer-events: none;
+  transition: .3s;
+}
+#popup-toggle:checked ~ .popup-overlay {
+  opacity: 1;
+  pointer-events: auto;
 }
 
-/* POPUP ANIMATION */
-.order-form {
-  background: #fff;
+.popup-box {
+  background: white;
   padding: 26px;
   width: 360px;
-  border-radius: 20px;
+  border-radius: 18px;
+  animation: pop .35s ease;
   text-align: center;
-  transform: scale(.85);
-  opacity: 0;
-  transition: .35s ease;
+}
+@keyframes pop {
+  from { transform: scale(.85); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
 }
 
-/* ACTIVE STATE */
-.order-form-overlay.active { 
-  display: flex;
-  opacity: 1;
-}
-.order-form-overlay.active .order-form {
-  transform: scale(1);
-  opacity: 1;
-}
-
-/* INPUT EFFECT */
-.order-form input {
-  width: 100%;
-  margin-bottom: 10px;
-  padding: 11px 12px;
-  border: 1px solid #d1d5db;
-  border-radius: 10px;
-  transition: .25s ease;
-}
-.order-form input:focus {
-  border-color: var(--green-main);
-  box-shadow: 0 0 0 3px rgba(46,204,113,0.25);
-  outline: none;
-}
-
-/* CONFIRM BUTTON WITH LOADING */
-.confirm-btn {
+.popup-box input {
   width: 100%;
   padding: 12px;
-  background: var(--green-main);
-  border: none;
   border-radius: 10px;
-  color: white;
-  font-weight: 700;
-  cursor: pointer;
-  transition: .25s ease;
-}
-.confirm-btn:hover { background: var(--green-dark); }
-
-.confirm-btn.loading {
-  pointer-events: none;
-  opacity: .7;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
 }
 
-/* CLOSE BUTTON */
 .close-btn {
-  margin-top: 10px;
-  border: none;
   background: #ddd;
   padding: 10px;
+  width: 100%;
   border-radius: 10px;
+  display: block;
+  text-align: center;
   cursor: pointer;
+  margin-top: 10px;
 }
-.close-btn:hover {
-  background: #ccc;
+
+/* MOBILE RESPONSIVE */
+@media(max-width: 768px) {
+  .product-intro {
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .product-image img {
+    width: 100% !important;
+  }
+
+  .final-price { font-size: 28px; }
 }
 </style>
+
+
+<!-- HTML MAIN -->
+<div class="product-intro fade">
+
+  <div class="product-image">
+    <img src="https://via.placeholder.com/500x600">
+  </div>
+
+  <div class="product-info">
+
+    <div class="badge">★ Best Seller • Khách mua nhiều</div>
+
+    <h1 style="color:#064e3b; font-size:26px; font-weight:700; margin:0;">
+      Quần Liền Ủng Cao Su 2 Lớp Chống Nước - Giữ Ấm
+    </h1>
+
+    <div class="rating-line">
+      <span class="star-icon">★</span>
+      <span>4.9/5</span>
+      <span>•</span>
+      <span>18,210 sold</span>
+    </div>
+
+    <div class="price-box">
+      <div class="final-price">130.000đ</div>
+      <div class="original-price">200.000đ</div>
+      <div class="discount-red">-35%</div>
+    </div>
+
+    <div class="gift-box">
+      🎁 Tặng 1 đôi găng tay<br>
+      ❤️ Ưu đãi 20% – số lượng có hạn
+    </div>
+
+    <div class="notice">⚠ Lưu ý đặt hàng theo size chân của bạn</div>
+
+    <!-- Button giữa + text nhỏ bên trong -->
+    <div class="order-btn-wrapper">
+      <label for="popup-toggle" class="order-btn">
+        <div class="btn-title">Đặt hàng ngay</div>
+        <div class="btn-sub">Miễn phí ship toàn quốc</div>
+      </label>
+    </div>
+
+    <div class="guarantee">
+      * Nếu không hài lòng, cửa hàng hỗ trợ đổi trả trong 7 ngày
+    </div>
+
+  </div>
+</div>
+
+<!-- POPUP -->
+<input type="checkbox" id="popup-toggle">
+
+<div class="popup-overlay">
+  <div class="popup-box">
+    <h2>Thông tin đặt hàng</h2>
+
+    <input type="text" placeholder="Họ và tên">
+    <input type="text" placeholder="Số điện thoại">
+    <input type="text" placeholder="Địa chỉ">
+
+    <label for="popup-toggle" class="close-btn">Đóng</label>
+  </div>
+</div>
