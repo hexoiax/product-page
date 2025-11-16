@@ -246,6 +246,15 @@ button, a, div, input, textarea, select, [tabindex] {
   box-shadow: none !important;
   border-color: transparent !important;
 }
+/* CHẶN 100% VIỀN XANH CHROME & MOBILE */
+*:focus,
+*:active,
+*:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+  -webkit-focus-ring-color: transparent !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
 
 </style>
 </head>
