@@ -126,36 +126,55 @@ html, body {
 
 .guarantee { text-align:center; font-size:13px; margin-top:20px; color:#166534; font-style:italic; }
 
-/* ========== POPUP JS (NEW) ========== */
-.popup-overlay-js {
+/* SIZE CHIP */
+.size-chip {
+  padding:8px 14px; border:1px solid #ccc;
+  border-radius:18px; background:white;
+  cursor:pointer; font-size:15px; transition:.15s;
+}
+.size-chip:hover { transform:scale(1.08); box-shadow:0 2px 5px rgba(0,0,0,0.15); }
+
+/* ======================
+   POPUP ĐẶT HÀNG (A)
+====================== */
+.popup-overlay {
   position: fixed; inset: 0;
-  background: rgba(0,0,0,0.55);
+  background: rgba(0,0,0,0.45);
   display: flex; align-items: center; justify-content: center;
   opacity: 0; pointer-events: none;
-  transition: .3s ease;
-  z-index: 99999;
+  transition: .25s ease;
+  z-index: 9999;
 }
 
-.popup-overlay-js.active { opacity: 1; pointer-events: auto; }
+.popup-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
 
-.popup-box-js {
-  width: 88%; max-width: 360px;
+.popup-box {
+  width: 92%;
+  max-width: 400px;
   background: #fff;
   border-radius: 18px;
   padding: 22px 24px;
   transform: scale(.85);
   opacity: 0;
-  transition: .28s ease;
-}
-.popup-overlay-js.active .popup-box-js {
-  transform: scale(1); opacity: 1;
+  transition: .25s ease;
 }
 
-.popup-box-js input,
-.popup-box-js textarea {
-  width: 100%; padding: 12px;
-  border-radius: 12px; border:1px solid #ccc;
-  font-size:15px; margin-bottom:10px;
+.popup-overlay.active .popup-box {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.popup-box input,
+.popup-box textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+  margin-bottom: 10px;
 }
 
 .lb { font-size:15px; font-weight:600; margin:10px 0 6px; display:block; }
@@ -175,18 +194,27 @@ html, body {
   width:100%; padding:14px; background:#2e7d32; color:white;
   border:none; border-radius:14px; font-size:17px; cursor:pointer;
 }
-.close-popup-btn {
-  width:100%; padding:12px; background:#ccc;
-  border-radius:12px; margin-top:10px; cursor:pointer;
+
+/* POPUP SUCCESS */
+#success-popup {
+  display:none; position:fixed;
+  top:0; left:0; width:100%; height:100%;
+  background:rgba(0,0,0,0.45);
+  align-items:center; justify-content:center;
+  z-index:99999;
 }
 
-/* SIZE CHIP */
-.size-chip {
-  padding:8px 14px; border:1px solid #ccc;
-  border-radius:18px; background:white;
-  cursor:pointer; font-size:15px; transition:.15s;
+.tick-circle {
+  width:84px;height:84px;border-radius:50%;
+  background-color:#2e7d32;display:flex;
+  align-items:center;justify-content:center;
+  animation:pulse 1.6s infinite;
 }
-.size-chip:hover { transform:scale(1.08); box-shadow:0 2px 5px rgba(0,0,0,0.15); }
+@keyframes pulse {
+  0% { transform: scale(1); box-shadow:0 0 0 0 rgba(46,125,50,0.4); }
+  70% { transform: scale(1.05); box-shadow:0 0 0 10px rgba(46,125,50,0); }
+  100% { transform: scale(1); box-shadow:0 0 0 0 rgba(46,125,50,0); }
+}
 
 @media(max-width:768px){
   .product-intro {flex-direction:column; padding:20px;}
@@ -197,6 +225,7 @@ html, body {
 
 <body>
 
+<!-- PRODUCT INTRO -->
 <div class="product-intro fade">
 
   <!-- SLIDER -->
@@ -206,53 +235,28 @@ html, body {
 
         <!-- Clone Last -->
         <div class="loop-slide clone">
-          <img src="https://ik.imagekit.io/7q6vhb7ce/sizechart%20copy.jpg?tr=w-900,q-75,f-webp">
+          <img src="https://ik.imagekit.io/7q6vhb7ce/sizechart%20copy.jpg">
           <div class="caption">Bảng size chuẩn – theo chiều cao & cân nặng.</div>
         </div>
 
-        <!-- Slides -->
-        <div class="loop-slide">
-          <img src="https://ik.imagekit.io/7q6vhb7ce/A.jpg?tr=w-900,q-75,f-webp">
-          <div class="caption">Hình ảnh thật – cao su ép nhiệt.</div>
-        </div>
-        <div class="loop-slide">
-          <img src="https://ik.imagekit.io/7q6vhb7ce/B.jpg?tr=w-900,q-75,f-webp">
-          <div class="caption">Chống thấm nước tuyệt đối.</div>
-        </div>
-        <div class="loop-slide">
-          <img src="https://ik.imagekit.io/7q6vhb7ce/C.jpg?tr=w-900,q-75,f-webp">
-          <div class="caption">Đường ép nhiệt liền mạch.</div>
-        </div>
-        <div class="loop-slide">
-          <img src="https://ik.imagekit.io/7q6vhb7ce/D.jpg?tr=w-900,q-75,f-webp">
-          <div class="caption">Dày 2 lớp – giữ ấm.</div>
-        </div>
-        <div class="loop-slide">
-          <img src="https://ik.imagekit.io/7q6vhb7ce/h.jpg?tr=w-900,q-75,f-webp">
-          <div class="caption">Chống trơn trượt.</div>
-        </div>
-        <div class="loop-slide">
-          <img src="https://ik.imagekit.io/7q6vhb7ce/F.jpg?tr=w-900,q-75,f-webp">
-          <div class="caption">Phù hợp nam & nữ.</div>
-        </div>
-        <div class="loop-slide">
-          <img src="https://ik.imagekit.io/7q6vhb7ce/E.jpg?tr=w-900,q-75,f-webp">
-          <div class="caption">Đế nguyên khối – bền chắc.</div>
-        </div>
-        <div class="loop-slide">
-          <img src="https://ik.imagekit.io/7q6vhb7ce/G.jpg?tr=w-900,q-75,f-webp">
-          <div class="caption">Khớp nối chắc chắn.</div>
-        </div>
+        <!-- REAL SLIDES -->
+        <div class="loop-slide"><img src="https://ik.imagekit.io/7q6vhb7ce/A.jpg"><div class="caption">Hình ảnh thật – cao su ép nhiệt.</div></div>
+        <div class="loop-slide"><img src="https://ik.imagekit.io/7q6vhb7ce/B.jpg"><div class="caption">Chống thấm nước tuyệt đối.</div></div>
+        <div class="loop-slide"><img src="https://ik.imagekit.io/7q6vhb7ce/C.jpg"><div class="caption">Đường ép nhiệt liền mạch.</div></div>
+        <div class="loop-slide"><img src="https://ik.imagekit.io/7q6vhb7ce/D.jpg"><div class="caption">Dày 2 lớp – giữ ấm.</div></div>
+        <div class="loop-slide"><img src="https://ik.imagekit.io/7q6vhb7ce/h.jpg"><div class="caption">Chống trơn trượt.</div></div>
+        <div class="loop-slide"><img src="https://ik.imagekit.io/7q6vhb7ce/F.jpg"><div class="caption">Phù hợp nam & nữ.</div></div>
+        <div class="loop-slide"><img src="https://ik.imagekit.io/7q6vhb7ce/E.jpg"><div class="caption">Đế nguyên khối – bền chắc.</div></div>
+        <div class="loop-slide"><img src="https://ik.imagekit.io/7q6vhb7ce/G.jpg"><div class="caption">Khớp nối chắc chắn.</div></div>
 
-        <!-- Size chart -->
         <div class="loop-slide">
-          <img src="https://ik.imagekit.io/7q6vhb7ce/sizechart%20copy.jpg?tr=w-900,q-75,f-webp">
+          <img src="https://ik.imagekit.io/7q6vhb7ce/sizechart%20copy.jpg">
           <div class="caption">Chọn size đúng để thoải mái nhất.</div>
         </div>
 
         <!-- Clone First -->
         <div class="loop-slide clone">
-          <img src="https://ik.imagekit.io/7q6vhb7ce/A.jpg?tr=w-900,q-75,f-webp">
+          <img src="https://ik.imagekit.io/7q6vhb7ce/A.jpg">
           <div class="caption">Hình ảnh thật – cao su ép nhiệt.</div>
         </div>
 
@@ -298,18 +302,18 @@ html, body {
   </div>
 </div>
 
-<!-- POPUP JS -->
-<div id="orderPopup" class="popup-overlay-js">
-  <div class="popup-box-js">
+<!-- POPUP ORDER -->
+<div id="orderPopup" class="popup-overlay">
+  <div class="popup-box" id="orderBox">
 
-    <h2 style="margin-top:0;margin-bottom:10px;text-align:center;">Thông tin đặt hàng</h2>
+    <h2 style="margin-top:0;text-align:center;">ĐẶT HÀNG NGAY</h2>
 
     <input id="name" type="text" placeholder="Tên khách hàng">
     <input id="phone" type="tel" placeholder="Số điện thoại">
     <textarea id="address" placeholder="Địa chỉ giao hàng"></textarea>
 
     <label class="lb">Chọn Size</label>
-    <div id="size-container" style="display:flex;flex-wrap:wrap;gap:8px;"></div>
+    <div id="size-container" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;"></div>
 
     <label class="lb">Số lượng</label>
     <div class="qty-wrap">
@@ -317,71 +321,57 @@ html, body {
       <div id="qty-dropdown"></div>
     </div>
 
-    <div id="price-summary" style="display:none;background:#f7fff8;padding:12px;border-radius:12px;margin-bottom:12px;">
+    <div id="price-summary" style="display:none;background:#fff;border-radius:14px;padding:14px 16px;box-shadow:0 2px 6px rgba(0,0,0,0.1);margin-bottom:18px;">
       <div>Tạm tính: <b id="subtotal">0₫</b></div>
-      <div style="color:#e53935;">Giảm giá 35%: <b id="discount">-0₫</b></div>
+      <div style="color:#e53935;">Giảm 35%: <b id="discount">-0₫</b></div>
       <div style="font-size:17px;font-weight:bold;">
-        Tổng: <span id="total" style="color:#2e7d32;">0₫</span>
+        Tổng thanh toán: <span id="total" style="color:#2e7d32;">0₫</span>
       </div>
-      <div style="font-size:13px;color:#2e7d32;">🚚 Miễn phí vận chuyển toàn quốc</div>
+      <div style="font-size:14px;color:#2e7d32;">🚚 Free Ship toàn quốc</div>
     </div>
 
     <textarea id="note" placeholder="Ghi chú (tuỳ chọn)"></textarea>
 
     <button id="submit-btn" class="submit-btn">Gửi đơn hàng</button>
-    <button id="closePopup" class="close-popup-btn">Đóng</button>
 
   </div>
 </div>
 
-<!-- JS SLIDER -->
+<!-- POPUP SUCCESS -->
+<div id="success-popup">
+  <div style="background:white;padding:24px 26px;border-radius:20px;width:80%;max-width:320px;text-align:center;box-shadow:0 4px 10px rgba(0,0,0,0.15);">
+    <div class="tick-circle">
+      <svg viewBox="0 0 24 24" fill="none">
+        <path d="M6 12.5l4 4L18 8.5" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <h3 style="color:#2e7d32;margin-top:10px;">Đặt hàng thành công!</h3>
+  </div>
+</div>
+
+<!-- ======== JS ======== -->
+
 <script>
-const track = document.getElementById("track");
-const slides = document.querySelectorAll(".loop-slide");
-let current = 1;
+/* =========================
+   POPUP CENTER MODAL (A)
+========================= */
+const orderPopup = document.getElementById("orderPopup");
+const orderBox = document.getElementById("orderBox");
 
-function slideWidth(){ return slides[0].offsetWidth + 16; }
+document.getElementById("openPopup").onclick = () => {
+  orderPopup.classList.add("active");
+};
 
-function goTo(index){
-  current = index;
-  track.style.transition = "transform .35s ease";
-  track.style.transform = `translateX(-${current * slideWidth()}px)`;
-  slides.forEach(s=>s.classList.remove("active"));
-  slides[current].classList.add("active");
-}
-
-setTimeout(()=>goTo(1), 80);
-
-track.addEventListener("transitionend", ()=>{
-  if(slides[current].classList.contains("clone")){
-    track.style.transition = "none";
-    current = (current === slides.length - 1) ? 1 : slides.length - 2;
-    track.style.transform = `translateX(-${current * slideWidth()}px)`;
-    slides.forEach(s=>s.classList.remove("active"));
-    slides[current].classList.add("active");
+// bấm ra ngoài để đóng (nhưng KHÔNG reset data)
+orderPopup.addEventListener("click", function(e){
+  if(!orderBox.contains(e.target)){
+    orderPopup.classList.remove("active");
   }
 });
 
-let startX=0;
-track.addEventListener("touchstart",e=>startX=e.touches[0].clientX);
-track.addEventListener("touchend",e=>{
-  const diff=startX - e.changedTouches[0].clientX;
-  if(diff>40) goTo(current+1);
-  else if(diff<-40) goTo(current-1);
-});
-
-window.addEventListener("resize",()=>{
-  track.style.transition="none";
-  track.style.transform=`translateX(-${current * slideWidth()}px)`;
-});
-</script>
-
-<!-- JS POPUP + FORM -->
-<script>
-const popup = document.getElementById("orderPopup");
-document.getElementById("openPopup").onclick = ()=> popup.classList.add("active");
-document.getElementById("closePopup").onclick = ()=> popup.classList.remove("active");
-
+/* =========================
+   LOGIC FORM
+========================= */
 const SCRIPT_URL='https://script.google.com/macros/s/AKfycbwCpEIrkWo_aDGQI3Tek6gKeg2VOTWASXDe59AMRK15kazytqIMrMMAmaYbZ9ynVYmsNA/exec';
 
 const sizes=['36','37','38','39','40','41','42'];
@@ -394,12 +384,14 @@ const priceSummary=document.getElementById('price-summary');
 const subtotalEl=document.getElementById('subtotal');
 const discountEl=document.getElementById('discount');
 const totalEl=document.getElementById('total');
+const successPopup=document.getElementById('success-popup');
 
-const basePrice=162500;
+const basePrice = 200000;
+
 let selectedSizes=[];
 let selectedQty=null;
 
-/* SIZE RENDER */
+/* Render size */
 sizes.forEach(size=>{
   const chip=document.createElement('div');
   chip.textContent=size;
@@ -420,7 +412,7 @@ sizes.forEach(size=>{
   sizeContainer.appendChild(chip);
 });
 
-/* QTY DROPDOWN */
+/* Render qty */
 qtys.forEach(qty=>{
   const item=document.createElement('div');
   item.textContent=qty;
@@ -434,7 +426,9 @@ qtys.forEach(qty=>{
   qtyDropdown.appendChild(item);
 });
 
-qtySelected.onclick=()=> qtyDropdown.style.display = qtyDropdown.style.display==='block'?'none':'block';
+qtySelected.onclick=()=>{
+  qtyDropdown.style.display = qtyDropdown.style.display==='block'?'none':'block';
+};
 
 document.addEventListener('click',e=>{
   if(!qtySelected.contains(e.target)&&!qtyDropdown.contains(e.target)){
@@ -442,20 +436,24 @@ document.addEventListener('click',e=>{
   }
 });
 
-/* PRICE */
+/* Price */
 function updatePrice(){
   if(!selectedQty) return;
+
   const subtotal = basePrice * selectedQty;
   const discount = subtotal * 0.35;
   const total = subtotal - discount;
-  subtotalEl.textContent=subtotal.toLocaleString('vi-VN')+'₫';
-  discountEl.textContent='-'+discount.toLocaleString('vi-VN')+'₫';
-  totalEl.textContent=total.toLocaleString('vi-VN')+'₫';
+
+  subtotalEl.textContent=subtotal.toLocaleString('vi-VN')+"₫";
+  discountEl.textContent="-"+discount.toLocaleString('vi-VN')+"₫";
+  totalEl.textContent=total.toLocaleString('vi-VN')+"₫";
+
   priceSummary.style.display='block';
 }
 
-/* SUBMIT */
-document.getElementById('submit-btn').onclick=()=>{
+/* Submit */
+document.getElementById("submit-btn").onclick = () => {
+
   const name=document.getElementById('name').value.trim();
   const phone=document.getElementById('phone').value.trim();
   const address=document.getElementById('address').value.trim();
@@ -467,20 +465,90 @@ document.getElementById('submit-btn').onclick=()=>{
   if(selectedSizes.length===0) return alert("Vui lòng chọn size");
   if(!selectedQty) return alert("Vui lòng chọn số lượng");
 
-  popup.classList.remove("active");
+  orderPopup.classList.remove("active");
 
   fetch(SCRIPT_URL,{
     method:'POST',
     body:new URLSearchParams({
-      name, phone, address,
+      name,phone,address,
       sizes:selectedSizes.join(', '),
       quantity:selectedQty,
       note
     })
   });
 
-  alert("Đặt hàng thành công!");
+  // show success popup
+  successPopup.style.display="flex";
+
+  // RESET SAU GỬI
+  setTimeout(()=>{
+    successPopup.style.display="none";
+
+    document.getElementById('name').value="";
+    document.getElementById('phone').value="";
+    document.getElementById('address').value="";
+    document.getElementById('note').value="";
+
+    selectedSizes=[];
+    selectedQty=null;
+
+    qtySelected.textContent="Chọn số lượng";
+    priceSummary.style.display="none";
+
+    document.querySelectorAll('.size-chip').forEach(c=>{
+      c.style.background='white';
+      c.style.color='black';
+      c.style.border='1px solid #ccc';
+    });
+
+  },3500);
 };
+</script>
+
+<!-- SLIDER JS -->
+<script>
+const track=document.getElementById("track");
+const slides=document.querySelectorAll(".loop-slide");
+let current=1;
+
+function slideWidth(){
+  return slides[0].offsetWidth+16;
+}
+
+function goTo(i){
+  current=i;
+  track.style.transition="transform .35s ease";
+  track.style.transform=`translateX(-${current*slideWidth()}px)`;
+  slides.forEach(s=>s.classList.remove("active"));
+  slides[current].classList.add("active");
+}
+
+setTimeout(()=>goTo(1),80);
+
+track.addEventListener("transitionend",()=>{
+  if(slides[current].classList.contains("clone")){
+    track.style.transition="none";
+    current=(current===slides.length-1)?1:slides.length-2;
+    track.style.transform=`translateX(-${current*slideWidth()}px)`;
+    slides.forEach(s=>s.classList.remove("active"));
+    slides[current].classList.add("active");
+  }
+});
+
+let startX=0;
+track.addEventListener("touchstart",e=>{
+  startX=e.touches[0].clientX;
+});
+track.addEventListener("touchend",e=>{
+  const diff=startX-e.changedTouches[0].clientX;
+  if(diff>40) goTo(current+1);
+  else if(diff<-40) goTo(current-1);
+});
+
+window.addEventListener("resize",()=>{
+  track.style.transition="none";
+  track.style.transform=`translateX(-${current*slideWidth()}px)`;
+});
 </script>
 
 </body>
