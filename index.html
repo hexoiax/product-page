@@ -506,13 +506,14 @@ button, a, div, input, textarea, select, [tabindex] {
   transform: translateY(0);
 }
 
-/* Mobile tối ưu UX */
+/* Giảm size chữ để không xuống dòng */
 @media (max-width: 480px) {
-  #topNoticeBar {
-    font-size: 14.5px;
-    padding: 11px 8px;
+  #noticeText {
+    font-size: 13px !important;
+    white-space: nowrap !important;
   }
 }
+
 /* 🔥 FLOATING ORDER BUTTON */
 /* 🌟 FLOATING BUTTON – 50% MÀN HÌNH, SÁT PHẢI + SÁT DƯỚI */
 #floatingOrderBtn {
@@ -626,6 +627,131 @@ button, a, div, input, textarea, select, [tabindex] {
 .safe-bottom-space {
   height: 80px;   /* đủ để nút xem thêm không bao giờ bị che */
 }
+#ratingJump {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 6px;
+  border-radius: 8px;
+  transition: transform .12s ease;
+}
+
+#ratingJump .rating-text {
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+}
+
+#ratingJump:active {
+  transform: scale(0.94);
+}
+.rating-liquid {
+  display: inline-flex;
+  align-items: flex-end;
+  font-weight: 600;
+  cursor: pointer;
+  gap: 4px;
+  margin-bottom: 10px;
+}
+
+.rating-wrapper {
+  position: relative;
+  display: inline-block;
+  line-height: 1;
+}
+
+.flow-line {
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  height: 2px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.flow-line::before {
+  content: "";
+  position: absolute;
+  height: 100%;
+  background: #2ECC71;
+  border-radius: 2px;
+
+  animation: lineFlow 2.4s linear infinite,
+             linePulse 2.4s ease-in-out infinite;
+}
+
+@keyframes lineFlow {
+  0%   { left: 0%;   width: 0%; }
+  20%  { left: 0%;   width: 65%; }
+  50%  { left: 25%;  width: 70%; }
+  80%  { left: 70%;  width: 35%; }
+  100% { left: 100%; width: 0%; }
+}
+
+@keyframes linePulse {
+  0%, 100% { transform: scaleY(1); }
+  50%      { transform: scaleY(1.5); }
+}
+
+.rating-liquid.fill .flow-line::before {
+  animation: none !important;
+  left: 0 !important;
+  width: 100% !important;
+  transform: scaleY(1.6);
+  transition: width 0.35s ease-out;
+}
+#cartHotIcon {
+  position: absolute;
+  top: 0;              /* dính sát cạnh trên ảnh */
+  left: 0;             /* dính sát cạnh trái ảnh */
+
+  background: #ff3b30;
+  color: white;
+
+  padding: 10px 18px 10px 20px;
+
+  font-size: 15px;     
+  font-weight: 800;
+
+  /* chỉ bo 1 góc phải dưới */
+  border-radius: 0 0 999px 0;
+
+  /* BÓNG PREMIUM */
+  box-shadow: 
+      0 3px 12px rgba(0,0,0,0.22),    /* bóng dưới */
+      0 0 8px rgba(0,0,0,0.12);       /* bóng tán mềm */
+
+  z-index: 50;
+  pointer-events: none;
+}
+
+
+
+.carousel-wrapper { position: relative; }
+/* === FLASH SALE RESPONSIVE === */
+
+/* Mặc định PC: flash-sale nằm ngang với giá */
+.price-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Mobile: nếu màn nhỏ → flash sale nhảy lên trên giá */
+@media (max-width: 480px) {
+  .price-box {
+    flex-direction: column;  /* giá xuống dưới */
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  #flash-sale {
+    order: -1;               /* đưa flash-sale lên trên */
+    width: 100%;
+    margin-top: 10px;
+  }
+}
 
 
 
@@ -656,66 +782,67 @@ button, a, div, input, textarea, select, [tabindex] {
 
   <!-- SLIDER -->
   <div class="carousel-wrapper">
+    <div id="cartHotIcon">283+ đã mua 24h</div>
     <div class="loop-carousel">
       <div class="loop-track" id="track">
 
         <!-- Clone Last -->
         <div class="loop-slide clone">
           <img src="https://ik.imagekit.io/7q6vhb7ce/sizechart%20copy.jpg?tr=w-900,q-75,f-webp">
-          <div class="caption">Chọn size đúng để thoải mái nhất.</div>
+          <div class="caption">Chọn size đúng để thoải mái nhất</div>
         </div>
 
         <!-- REAL SLIDES -->
         <div class="loop-slide">
           <img src="https://ik.imagekit.io/7q6vhb7ce/A.jpg?tr=w-900,q-75,f-webp">
-          <div class="caption"> Phù hợp nam & nữ. </div>
+          <div class="caption"> Phù hợp nam & nữ </div>
         </div>
 
         <div class="loop-slide">
           <img src="https://ik.imagekit.io/7q6vhb7ce/B.jpg?tr=w-900,q-75,f-webp">
-          <div class="caption">Chống thấm nước tuyệt đối.</div>
+          <div class="caption">Chống thấm nước tuyệt đối</div>
         </div>
 
         <div class="loop-slide">
           <img src="https://ik.imagekit.io/7q6vhb7ce/C.jpg?tr=w-900,q-75,f-webp">
-          <div class="caption">Đường ép nhiệt liền mạch.</div>
+          <div class="caption">Đường ép nhiệt liền mạch</div>
         </div>
 
         <div class="loop-slide">
           <img src="https://ik.imagekit.io/7q6vhb7ce/D.jpg?tr=w-900,q-75,f-webp">
-          <div class="caption">Hình ảnh thật – cao su ép nhiệt.</div>
+          <div class="caption">Hình ảnh thật – cao su ép nhiệt</div>
         </div>
 
         <div class="loop-slide">
           <img src="https://ik.imagekit.io/7q6vhb7ce/h.jpg?tr=w-900,q-75,f-webp">
-          <div class="caption">Dày 2 lớp – giữ ấm.</div>
+          <div class="caption">Dày 2 lớp – giữ ấm</div>
         </div>
 
         <div class="loop-slide">
           <img src="https://ik.imagekit.io/7q6vhb7ce/F.jpg?tr=w-900,q-75,f-webp">
-          <div class="caption">Khớp nối chắc chắn.</div>
+          <div class="caption">Khớp nối chắc chắn</div>
         </div>
 
         <div class="loop-slide">
           <img src="https://ik.imagekit.io/7q6vhb7ce/E.jpg?tr=w-900,q-75,f-webp">
-          <div class="caption">Đế nguyên khối – bền chắc.</div>
+          <div class="caption">Đế nguyên khối – bền chắc</div>
         </div>
 
         <div class="loop-slide">
           <img src="https://ik.imagekit.io/7q6vhb7ce/G.jpg?tr=w-900,q-75,f-webp">
-          <div class="caption">Chống trơn trượt.</div>
+          <div class="caption">Chống trơn trượt</div>
         </div>
 
         <!-- Size chart -->
         <div class="loop-slide">
           <img src="https://ik.imagekit.io/7q6vhb7ce/sizechart%20copy.jpg?tr=w-900,q-75,f-webp">
-          <div class="caption">Chọn size đúng để thoải mái nhất.</div>
+          <div class="caption">Chọn size đúng để thoải mái nhất</div>
         </div>
 
         <!-- Clone First -->
         <div class="loop-slide clone">
           <img src="https://ik.imagekit.io/7q6vhb7ce/A.jpg?tr=w-900,q-75,f-webp">
-          <div class="caption">Phù hợp nam & nữ.</div>
+          <div class="caption">Phù hợp nam & nữ</div>
         </div>
 
       </div>
@@ -731,14 +858,55 @@ button, a, div, input, textarea, select, [tabindex] {
       Quần Liền Ủng Cao Su 2 Lớp Chống Nước - Giữ Ấm
     </h1>
 
-    <div class="rating-line">
-      <span class="star-icon">★</span> 4.9/5 • 18,210 sold
-    </div>
+    <div id="rating-liquid" class="rating-liquid">
+  ⭐ 
+  <span class="rating-wrapper">
+    4.9/5 • 18,200 lượt bán
+    <span class="flow-line"></span>
+  </span>
+</div>
+<!-- FLASH SALE -->
+
+
+
+
 
     <div class="price-box">
+      
       <div class="final-price">130.000đ</div>
       <div class="original-price">200.000đ</div>
-      <div class="discount-red">-35%</div>
+      <div class="discount-red">-35%</div> <div id="flash-sale" style="
+  background: linear-gradient(90deg,#2ECC71,#1FA85C);
+  padding:12px 16px;
+  border-radius:14px;
+  color:#fff;
+  font-family:system-ui,sans-serif;
+  margin:10px 0 18px 0;
+  box-shadow:0 6px 16px rgba(0,0,0,0.12);
+  width:100%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+">
+    <div style="font-size:15px;font-weight:700;">
+      🔥 ƯU ĐÃI GIỜ VÀNG 35%<br>
+      <span style="font-size:12px;opacity:0.9;">Kết thúc sau:</span>
+    </div>
+
+    <div id="countdown" style="
+      font-size:16px;
+      font-weight:700;
+      background:rgba(255,255,255,0.25);
+      padding:6px 12px;
+      border-radius:8px;
+      min-width:90px;
+      text-align:center;
+      letter-spacing:1px;
+    ">--:--:--</div>
+      
+</div>
+
+
     </div>
 
     <div class="gift-box">
@@ -762,7 +930,7 @@ button, a, div, input, textarea, select, [tabindex] {
   </div>
 </div>
 <!-- KHỐI THỨ 2 -->
-<div class="section-tabs fade-scroll">
+<div class="section-tabs fade-scroll" id="reviewSection">
 
 
   <!-- THANH TAB -->
@@ -779,7 +947,7 @@ button, a, div, input, textarea, select, [tabindex] {
       <div class="rating-left">
         <div class="avg-score">4.9</div>
         <div class="avg-stars">★★★★★</div>
-        <div class="total-reviews">18,210 đánh giá</div>
+        <div class="total-reviews">8,000 đánh giá</div>
       </div>
 
       <div class="rating-bars">
@@ -800,7 +968,7 @@ button, a, div, input, textarea, select, [tabindex] {
       <div class="review-item">
         <img src="https://i.pravatar.cc/80?img=1" class="review-avatar">
         <div class="review-body">
-          <div class="review-name">Nguyễn Minh</div>
+          <div class="review-name">Nguyễn Hoàng Minh</div>
           <div class="review-stars">★★★★★</div>
           <div class="review-text">Ủng dày, chống nước cực tốt.</div>
           <img src="https://ik.imagekit.io/7q6vhb7ce/A.jpg?tr=w-400" class="review-img zoom-img">
@@ -1280,9 +1448,9 @@ reviewTrack.addEventListener("touchend", e => {
 });
 /* 🔥 AUTO NOTICE BAR – PREMIUM ANIMATION */
 const noticeMessages = [
-  "🎉 CHỈ ĐẾN HẾT 30/11 • GIẢM 20% TOÀN SHOP",
+  "🎉 CHỈ ĐẾN HẾT 30/11 • GIẢM 35% TOÀN SHOP",
   "🚚 ƯU ĐÃI ĐẶC BIỆT • FREE SHIP TOÀN QUỐC",
-  "🧤 NHẬN QUÀ THIẾT THỰC • ĐÔI GĂNG TAY CHỐNG TRƯỢT",
+  "🧤 NHẬN QUÀ THIẾT THỰC • ĐÔI GĂNG TAY LAO ĐỘNG",
   "💚 THÁNG 11 TRI ÂN • XIN CẢM ƠN QUÝ KHÁCH ĐÃ ĐỒNG HÀNH"
 ];
 
@@ -1399,6 +1567,82 @@ function scheduleNextPopup() {
 
 // chạy lần đầu sau 2.5 giây để tự nhiên nhất
 setTimeout(showPurchasePopup, 2500);
+const ratingLiquid = document.getElementById("rating-liquid");
+
+ratingLiquid.addEventListener("click", () => {
+  ratingLiquid.classList.add("fill");
+
+  // Hiệu ứng nhún nhẹ UX
+  ratingLiquid.style.transform = "scale(0.94)";
+  setTimeout(() => {
+    ratingLiquid.style.transform = "scale(1)";
+  }, 180);
+
+  // Scroll xuống khối đánh giá
+  document.getElementById("reviewSection").scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
+
+  setTimeout(() => ratingLiquid.classList.remove("fill"), 1200);
+});
+
+/* FLASH SALE COUNTDOWN */
+(function() {
+  const DAY_KEY = "flashSaleDay";
+  const START_KEY = "flashSale2HourStart";
+  const duration = 2 * 60 * 60 * 1000; // 2 giờ
+
+  // lấy ngày hiện tại dạng YYYY-MM-DD (dùng để reset mỗi ngày)
+  const todayStr = new Date().toISOString().slice(0, 10);
+
+  let savedDay = localStorage.getItem(DAY_KEY);
+  let startTime = localStorage.getItem(START_KEY);
+
+  // nếu chưa có ngày hoặc đã sang ngày mới -> reset countdown cho ngày mới
+  if (!savedDay || savedDay !== todayStr) {
+    localStorage.setItem(DAY_KEY, todayStr);
+    startTime = Date.now();
+    localStorage.setItem(START_KEY, startTime);
+  } else {
+    // cùng ngày thì dùng lại startTime cũ
+    if (!startTime) {
+      startTime = Date.now();
+      localStorage.setItem(START_KEY, startTime);
+    } else {
+      startTime = parseInt(startTime);
+    }
+  }
+
+  const countdownEl = document.getElementById("countdown");
+  const flashSaleBox = document.getElementById("flash-sale");
+
+  function updateCountdown() {
+    const now = Date.now();
+    const elapsed = now - startTime;
+    const remaining = duration - elapsed;
+
+    if (remaining <= 0) {
+      countdownEl.innerText = "00:00:00";
+      flashSaleBox.style.opacity = "0.6";
+      return;
+    }
+
+    const hours = Math.floor(remaining / (1000 * 60 * 60));
+    const mins  = Math.floor((remaining / (1000 * 60)) % 60);
+    const secs  = Math.floor((remaining / 1000) % 60);
+
+    countdownEl.innerText =
+      String(hours).padStart(2,'0') + ":" +
+      String(mins).padStart(2,'0') + ":" +
+      String(secs).padStart(2,'0');
+  }
+
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+})();
+
+
 
 
 
