@@ -503,7 +503,7 @@ textarea.form-input {
   font-weight: 700;
   cursor: pointer;
   width: fit-content;
-  box-shadow: 0 10px 26px rgba(34, 197, 94, 0.45);
+
   transition: transform .15s ease, box-shadow .15s ease;
 }
 .btn-more:active {
@@ -699,13 +699,18 @@ textarea.form-input {
 /* PURCHASE POPUP (fake order) */
 .purchase-popup {
   position: fixed;
-  top: 20px;
+  top: 60px;
   right: 20px;
+  left: auto;
+
+  max-width: 50%;          /* 👈 Thu nhỏ còn 1/2 màn hình */
+  width: fit-content;      /* 👈 Tự co nội dung không giãn full */
+
   display: flex;
   align-items: center;
   gap: 12px;
   background: #ffffff;
-  padding: 12px 16px;
+  padding: 10px 12px;      /* 👈 Thu padding cho đúng tỷ lệ 1/2 màn hình */
   border-radius: 14px;
   box-shadow: 0 12px 32px rgba(15, 23, 42, 0.18);
   border: 1px solid #e5e7eb;
@@ -715,6 +720,10 @@ textarea.form-input {
   z-index: 9999;
   pointer-events: none;
 }
+
+
+
+
 .purchase-popup.show {
   opacity: 1;
   transform: translateX(0);
@@ -776,7 +785,7 @@ textarea.form-input {
 }
 .video-left video {
   width: 100%;
-  aspect-ratio: 6/19;
+  aspect-ratio: 6/10;
   border-radius: 18px;
   box-shadow: 0 10px 24px rgba(15, 23, 42, 0.18);
   object-fit: cover;
@@ -787,24 +796,32 @@ textarea.form-input {
   display: flex;
   flex-direction: column;
   justify-content: center;
+
+  padding: 0 24px;            /* mở rộng không gian hai bên */
+  max-width: 420px;           /* giúp text rộng hơn, không bị bó hẹp */
 }
+
 .video-title {
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 800;
   color: #064e3b;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
+  line-height: 1.35;
 }
+
 .video-desc {
   font-size: 15px;
+  line-height: 1.55;
   color: #374151;
-  line-height: 1.6;
-  opacity: 0.9;
+  text-align: justify;        /* 👈 căn lề đều 2 bên cho dòng đều, chuyên nghiệp */
+  margin-bottom: 16px;
 }
+
 .video-dots {
   display: flex;
-  gap: 10px;
-  margin-top: 18px;
+  gap: 12px;
 }
+
 .dot {
   width: 12px;
   height: 12px;
@@ -824,7 +841,7 @@ textarea.form-input {
   .product-intro {
     flex-direction: column;
     padding: 20px;
-    margin-top: 80px;
+    margin-top: 30px;
   }
   .carousel-wrapper {
     max-width: 100%;
@@ -868,7 +885,7 @@ textarea.form-input {
 
   .purchase-popup {
     right: 10px;
-    left: 10px;
+    left: auto;
   }
 }
 </style>
@@ -1175,15 +1192,42 @@ textarea.form-input {
   </div>
 
   <!-- TAB: MÔ TẢ SẢN PHẨM -->
-  <div id="tab-description" class="tab-content">
-    <div class="desc-box">
-      <h3>Mô tả sản phẩm</h3>
-      <p>
-        Quần liền ủng cao su 2 lớp ép nhiệt chống nước tuyệt đối, giữ ấm tốt khi đi ruộng, đi rừng, làm nông nghiệp.
-        Đế nguyên khối chắc chắn, chống trơn trượt, phù hợp cả nam và nữ.
-      </p>
-    </div>
+<!-- TAB: MÔ TẢ SẢN PHẨM -->
+<div id="tab-description" class="tab-content">
+
+  <div class="product-details-box fade">
+
+    <h3 class="section-title">📝 Giới thiệu sản phẩm</h3>
+    <p class="text-body">
+      Quần liền ủng cao su 2 lớp chuyên dùng cho lao động ngoài trời, hỗ trợ bảo vệ toàn thân từ ngực đến bàn chân.
+      Chống nước tuyệt đối, giữ ấm tốt, hạn chế gió lạnh lùa…
+    </p>
+
+    <h3 class="section-title">✨ Điểm nổi bật</h3>
+    <ul class="feature-list">
+      <li>Chống nước toàn thân từ ngực xuống bàn chân</li>
+      <li>2 lớp bảo vệ: cao su dày + lớp trong giữ ấm</li>
+      <li>Đế ủng chống trơn trượt</li>
+      <li>Thân quần ép nhiệt kín</li>
+      <li>Giữ ấm cơ thể, ngăn gió lùa</li>
+      <li>Dễ vệ sinh, nhanh khô</li>
+    </ul>
+
+    <h3 class="section-title">📍 Thông số kỹ thuật</h3>
+    <ul class="feature-list">
+      <li>Chiều dài: từ chân lên lưng bụng</li>
+      <li>Chất liệu: Cao su tổng hợp</li>
+      <li>Ủng: PVC Chống trượt</li>
+      <li>Quần: Cao Su Liền thân</li>
+      <li>Màu: Xanh lá</li>
+      <li>Size: 36 - 42</li>
+      <li>Công dụng: Chống nước – Giữ ấm – Chống bùn – Chống trơn</li>
+    </ul>
+
   </div>
+</div>
+
+
 
 </div>
 
@@ -1244,7 +1288,15 @@ textarea.form-input {
 <!-- VIDEO REVIEW SECTION -->
 <div id="videoSection" class="video-section">
   <div class="video-left">
-    <video id="reviewVideo" src="video1.mp4" controls muted></video>
+    <video id="reviewVideo" src="video1.mp4"
+       autoplay
+       muted
+       loop
+       playsinline
+       disablepictureinpicture
+       controlslist="nodownload noplaybackrate nofullscreen"
+       style="pointer-events:none;">
+</video>
   </div>
 
   <div class="video-right">
@@ -1756,6 +1808,8 @@ document.addEventListener("DOMContentLoaded", function () {
       const v = videos[id];
 
       videoEl.src = v.src;
+      videoEl.muted = true;
+videoEl.play();
       titleEl.textContent = v.title;
       descEl.innerHTML = v.desc.replace(/\n/g, "<br>");
     });
