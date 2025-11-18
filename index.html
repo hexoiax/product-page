@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
+<script type="text/javascript" src="https://d3js.org/d3.v7.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/granim/2.0.0/granim.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Quần Liền Ủng Cao Su 2 Lớp Chống Nước - Giữ Ấm</title>
@@ -765,17 +769,17 @@ textarea.form-input {
 /* VIDEO REVIEW SECTION */
 .video-section {
   max-width: 1100px;
-  margin: 32px auto 10px auto;
-  background: #fff;
-  border-radius: 18px;
+
+  margin: 20px auto 0 auto; /* 👈 chỉnh khoảng cách phía trên */
+
   padding: 22px;
-  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
+  background: transparent;   /* nếu bạn đã bỏ nền */
+  border-radius: 0;
+  box-shadow: none;
   display: flex;
   gap: 26px;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity .7s ease, transform .7s ease;
 }
+
 .video-section.show {
   opacity: 1;
   transform: translateY(0);
@@ -888,6 +892,236 @@ textarea.form-input {
     left: auto;
   }
 }
+.video-section {
+  max-width: 1100px;
+  margin: 20px auto 0 auto;
+  padding: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.video-slider {
+  display: flex;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.video-slide {
+  min-width: 100%;
+  scroll-snap-align: center;
+}
+
+.video-slide video {
+  width: 100%;
+  aspect-ratio: 9/16; /* CHỐT: video đứng yên, không nhảy */
+  border-radius: 18px;
+  background: transparent !important;
+  box-shadow: 0 12px 35px rgba(0,0,0,0.22);
+  object-fit: cover;
+}
+
+.video-text {
+  padding: 14px 10px 4px 10px;
+  text-align: center;
+}
+
+.video-title {
+  font-size: 20px;
+  font-weight: 800;
+  margin-top: 10px;
+  margin-bottom: 6px;
+}
+
+.video-dots {
+  margin: 10px auto 0 auto;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+
+/* ====== VIDEO REVIEW 65/35 – SCROLL-SNAP VERSION B (OVERRIDE) ====== */
+.video-section {
+  max-width: 1100px;
+  margin: 24px auto 0 auto;
+  padding: 0 20px;
+  background: transparent;
+  box-shadow: none;
+  display: flex;
+  gap: 24px;
+  align-items: stretch;
+}
+
+.video-left {
+  flex: 0 0 65%;
+}
+
+.video-right {
+  flex: 0 0 35%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Slider video vuốt trong khung */
+.video-slider {
+  display: flex;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+.video-slide {
+  min-width: 100%;
+  scroll-snap-align: center;
+}
+
+.video-slide video {
+  width: 100%;
+  aspect-ratio: 9/16;
+  border-radius: 18px;
+  object-fit: cover;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.18);
+}
+
+/* Text bên phải */
+.video-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: #064e3b;
+  margin-bottom: 10px;
+}
+
+.video-desc {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #374151;
+}
+
+/* Dots */
+.video-dots {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.video-dots .dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background:#d1d5db;
+  cursor:pointer;
+  transition: background .25s ease, transform .2s ease, box-shadow .2s ease;
+}
+
+.video-dots .dot.active {
+  background:#22c55e;
+  transform:scale(1.2);
+  box-shadow:0 0 0 4px rgba(34,197,94,0.25);
+}
+
+/* MOBILE: video trên, text dưới, vẫn mượt */
+@media (max-width: 768px) {
+  .video-section {
+    flex-direction: column;
+    padding: 0 16px;
+  }
+  .video-left,
+  .video-right {
+    flex: 0 0 auto;
+    width: 100%;
+  }
+  .video-title {
+    font-size: 17px;
+    text-align: center;
+  }
+  .video-dots {
+    justify-content: center;
+  }
+}
+/* VIDEO TRÀN VIỀN – BO CONG + ĐỔ BÓNG */
+.floating-video {
+  width: 100%;
+  aspect-ratio: 9/16;
+  border-radius: 18px;                 /* BO CONG */
+  object-fit: cover;
+  display: block;
+  background: transparent;
+  box-shadow: 0 12px 35px rgba(0,0,0,0.18);   /* ĐỔ BÓNG */
+  margin: 0;
+  padding: 0;
+}
+
+/* Xóa hoàn toàn nền quanh video */
+.video-slider,
+.video-slide {
+  background: transparent !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: hidden;
+}
+
+/* Ẩn scrollbar */
+.video-slider::-webkit-scrollbar { display: none; }
+.video-slider { scrollbar-width: none; -ms-overflow-style: none; }
+
+.video-slide {
+  background: transparent !important;
+  overflow: visible !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+/* FORCE TRANSPARENT BACKGROUND – FIX BLEED */
+.video-section,
+.video-left,
+.video-slider,
+.video-slide,
+.product-intro,
+.product-page,
+.section-container,
+.content-wrapper,
+.wrapper {
+  background: transparent !important;
+}
+html, body {
+  background: #ffffff !important;
+}
+
+.video-section {
+  background: transparent !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+}
+/* XOÁ TOÀN BỘ PADDING + NỀN GÂY VIỀN XÁM */
+.video-section,
+.video-section.show,
+@media (max-width:9999px){
+  .video-section {
+    padding: 0 !important;
+    background: transparent !important;
+  }
+}
+.video-left,
+.video-slider,
+.video-slide {
+  padding: 0 !important;
+  margin: 0 !important;
+  gap: 0 !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+}
+.floating-video {
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 22px !important;
+  object-fit: cover !important;
+  display: block !important;
+}
+
+
 </style>
 </head>
 
@@ -1227,10 +1461,44 @@ textarea.form-input {
   </div>
 </div>
 
+<!-- VIDEO REVIEW SECTION -->
+<div id="videoSection" class="video-section">
 
+  <!-- BÊN TRÁI: VIDEO (65%) -->
+  <div class="video-left">
+    <div class="video-slider" id="videoSlider">
+      <div class="video-slide" data-id="0">
+       <video src="https://assets.mixkit.co/p2er4ntap5q0ki2we5s3drhxvabg" playsinline muted loop autoplay class="floating-video"></video>
+      </div>
+      <div class="video-slide" data-id="1">
+        <video src="https://assets.mixkit.co/vt6oizo2t7286wow4rg17vp6673a" playsinline muted loop autoplay class="floating-video"></video>
+      </div>
+      <div class="video-slide" data-id="2">
+        <video src="https://assets.mixkit.co/videos/39875/39875-720.mp4" playsinline muted loop autoplay class="floating-video"></video>
+      </div>
+    </div>
+  </div>
+
+  <!-- BÊN PHẢI: TEXT (35%) -->
+  <div class="video-right">
+    <div class="video-title" id="videoTitle">
+      Khách TikTok Review Sản Phẩm
+    </div>
+
+    <!-- Desc để trống theo đúng yêu cầu -->
+    <div class="video-desc" id="videoDesc"></div>
+
+    <div class="video-dots">
+      <div class="dot active" data-id="0"></div>
+      <div class="dot" data-id="1"></div>
+      <div class="dot" data-id="2"></div>
+    </div>
+  </div>
 
 </div>
 
+
+</div>
 <!-- ZOOM ẢNH -->
 <div id="zoomOverlay">
   <img id="zoomImage" alt="zoom">
@@ -1285,36 +1553,7 @@ textarea.form-input {
   </div>
 </div>
 
-<!-- VIDEO REVIEW SECTION -->
-<div id="videoSection" class="video-section">
-  <div class="video-left">
-    <video id="reviewVideo" src="video1.mp4"
-       autoplay
-       muted
-       loop
-       playsinline
-       disablepictureinpicture
-       controlslist="nodownload noplaybackrate nofullscreen"
-       style="pointer-events:none;">
-</video>
-  </div>
 
-  <div class="video-right">
-    <div class="video-title" id="videoTitle">Khách TikTok Review Sản Phẩm</div>
-    <div class="video-desc" id="videoDesc">
-      Video được quay trực tiếp bởi khách sau khi sử dụng.<br>
-      Hoàn toàn không chỉnh sửa – đúng trải nghiệm thực tế.
-    </div>
-
-    <div class="video-dots">
-      <div class="dot active" data-id="0"></div>
-      <div class="dot" data-id="1"></div>
-      <div class="dot" data-id="2"></div>
-    </div>
-  </div>
-</div>
-
-<div class="safe-bottom-space"></div>
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
@@ -1775,57 +2014,84 @@ document.addEventListener("DOMContentLoaded", function () {
     setInterval(updateCountdown, 1000);
   })();
 
-  /* ==================== VIDEO REVIEW CONTROLLER ==================== */
-  const videos = [
-    {
-      src: "video1.mp4",
-      title: "Khách TikTok Review Sản Phẩm",
-      desc: "Video được quay trực tiếp bởi khách sau khi sử dụng.\nHoàn toàn không chỉnh sửa – đúng trải nghiệm thực tế."
-    },
-    {
-      src: "video2.mp4",
-      title: "Trải nghiệm thực tế ngoài đồng",
-      desc: "Khách ghi lại quá trình dùng sản phẩm khi đi ruộng – chống nước và giữ ấm rất tốt."
-    },
-    {
-      src: "video3.mp4",
-      title: "Review thật – không booking",
-      desc: "Khách hàng tự quay, chia sẻ cảm nhận chân thực sau vài ngày dùng."
-    }
-  ];
+ /* ===== VIDEO REVIEW SWIPE CONTROLLER (SCROLL-SNAP, VERSION B) ===== */
 
-  const videoEl = document.getElementById("reviewVideo");
-  const titleEl = document.getElementById("videoTitle");
-  const descEl = document.getElementById("videoDesc");
-  const dots = document.querySelectorAll(".dot");
+// Dữ liệu title cho từng video
+const videoData = [
+  { title: "Khách TikTok Review Sản Phẩm" },
+  { title: "Trải nghiệm thực tế ngoài đồng" },
+  { title: "Review thật – không booking" }
+];
 
-  dots.forEach(dot => {
-    dot.addEventListener("click", () => {
-      dots.forEach(d => d.classList.remove("active"));
-      dot.classList.add("active");
+const videoSlider = document.getElementById("videoSlider");
+const videoSlides = document.querySelectorAll(".video-slide");
+const videoTitleEl = document.getElementById("videoTitle");
+const videoDots = document.querySelectorAll(".video-dots .dot");
 
-      const id = parseInt(dot.dataset.id, 10);
-      const v = videos[id];
+// Đảm bảo video autoplay + mute + loop + không controls
+document.querySelectorAll("#videoSection video").forEach(v => {
+  v.removeAttribute("controls");
+  v.muted = true;
+  v.loop = true;
+  v.playsInline = true;
+  v.autoplay = true;
 
-      videoEl.src = v.src;
-      videoEl.muted = true;
-videoEl.play();
-      titleEl.textContent = v.title;
-      descEl.innerHTML = v.desc.replace(/\n/g, "<br>");
-    });
-  });
-
-  /* ==================== VIDEO SECTION SCROLL EFFECT ==================== */
-  const videoSection = document.getElementById("videoSection");
-  if (videoSection) {
-    const videoObs = new IntersectionObserver(entries => {
-      if (entries[0].isIntersecting) {
-        videoSection.classList.add("show");
-        videoObs.unobserve(videoSection);
-      }
-    }, { threshold: 0.2 });
-    videoObs.observe(videoSection);
+  const playPromise = v.play();
+  if (playPromise && typeof playPromise.catch === "function") {
+    playPromise.catch(() => {});
   }
+
+  v.addEventListener("click", (e) => {
+    e.preventDefault();
+    v.play();
+  });
+});
+
+let currentVideoIndex = 0;
+
+// Cập nhật title + dot theo index
+function updateVideoReviewUI(index) {
+  const safeIndex = Math.max(0, Math.min(videoData.length - 1, index));
+  currentVideoIndex = safeIndex;
+
+  if (videoTitleEl && videoData[safeIndex]) {
+    videoTitleEl.innerText = videoData[safeIndex].title;
+  }
+
+  videoDots.forEach((d, i) => {
+    if (i === safeIndex) d.classList.add("active");
+    else d.classList.remove("active");
+  });
+}
+
+// Khi scroll trong khung video -> xác định video nào đang active
+if (videoSlider) {
+  videoSlider.addEventListener("scroll", () => {
+    const width = videoSlider.offsetWidth || 1;
+    const rawIndex = videoSlider.scrollLeft / width;
+    const index = Math.round(rawIndex);
+    if (index !== currentVideoIndex) {
+      updateVideoReviewUI(index);
+    }
+  });
+}
+
+// Click dot -> nhảy đúng 1 video (snap)
+videoDots.forEach(dot => {
+  dot.addEventListener("click", () => {
+    const id = parseInt(dot.dataset.id, 10);
+    if (isNaN(id) || !videoSlider) return;
+    const width = videoSlider.offsetWidth;
+    videoSlider.scrollTo({
+      left: width * id,
+      behavior: "smooth"
+    });
+    updateVideoReviewUI(id);
+  });
+});
+
+// Khởi tạo UI ban đầu
+updateVideoReviewUI(0);
 });
 </script>
 
