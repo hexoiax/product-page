@@ -949,7 +949,7 @@ textarea.form-input {
   background: transparent;
   box-shadow: none;
   display: flex;
-  gap: 24px;
+  gap: 26px;
   align-items: stretch;
 }
 
@@ -1120,6 +1120,8 @@ html, body {
   object-fit: cover !important;
   display: block !important;
 }
+
+
 
 
 </style>
@@ -1468,13 +1470,13 @@ html, body {
   <div class="video-left">
     <div class="video-slider" id="videoSlider">
       <div class="video-slide" data-id="0">
-       <video src="https://assets.mixkit.co/p2er4ntap5q0ki2we5s3drhxvabg" playsinline muted loop autoplay class="floating-video"></video>
+       <video src="https://files.catbox.moe/kq3rn6.mp4" playsinline muted loop autoplay class="floating-video"></video>
       </div>
       <div class="video-slide" data-id="1">
-        <video src="https://assets.mixkit.co/vt6oizo2t7286wow4rg17vp6673a" playsinline muted loop autoplay class="floating-video"></video>
+        <video src="https://files.catbox.moe/0ef74v.mp4" playsinline muted loop autoplay class="floating-video"></video>
       </div>
       <div class="video-slide" data-id="2">
-        <video src="https://assets.mixkit.co/videos/39875/39875-720.mp4" playsinline muted loop autoplay class="floating-video"></video>
+        <video src="https://files.catbox.moe/zdbgcu.mp4" playsinline muted loop autoplay class="floating-video"></video>
       </div>
     </div>
   </div>
@@ -2014,67 +2016,91 @@ document.addEventListener("DOMContentLoaded", function () {
     setInterval(updateCountdown, 1000);
   })();
 
- /* ===== VIDEO REVIEW SWIPE CONTROLLER (SCROLL-SNAP, VERSION B) ===== */
-
-// Dữ liệu title cho từng video
-const videoData = [
-  { title: "Khách TikTok Review Sản Phẩm" },
-  { title: "Trải nghiệm thực tế ngoài đồng" },
-  { title: "Review thật – không booking" }
-];
+/* ===== ONE-VIDEO-ACTIVE SYSTEM (ANTI-LAG) ===== */
 
 const videoSlider = document.getElementById("videoSlider");
-const videoSlides = document.querySelectorAll(".video-slide");
-const videoTitleEl = document.getElementById("videoTitle");
-const videoDots = document.querySelectorAll(".video-dots .dot");
+const vrSlides = document.querySelectorAll("#videoSlider .video-slide");
+const vrVideos = document.querySelectorAll("#videoSlider .video-slide video");
+const vrDots   = document.querySelectorAll(".video-dots .dot");
+const vrTitle  = document.getElementById("videoTitle");
 
-// Đảm bảo video autoplay + mute + loop + không controls
-document.querySelectorAll("#videoSection video").forEach(v => {
-  v.removeAttribute("controls");
-  v.muted = true;
-  v.loop = true;
-  v.playsInline = true;
-  v.autoplay = true;
+const vrTitles = [
+  "Khách TikTok Review Sản Phẩm",
+  "Trải nghiệm thực tế ngoài đồng",
+  "Review thật – không booking"
+];
 
-  const playPromise = v.play();
-  if (playPromise && typeof playPromise.catch === "function") {
-    playPromise.catch(() => {});
-  }
-
-  v.addEventListener("click", (e) => {
-    e.preventDefault();
-    v.play();
-  });
+// Tắt autoplay & dừng tất cả video lúc đầu
+vrVideos.forEach(v => {
+  v.removeAttribute("autoplay");
+  v.pause();
 });
 
-let currentVideoIndex = 0;
+let vrCurrentIndex = 0;
 
-// Cập nhật title + dot theo index
-function updateVideoReviewUI(index) {
-  const safeIndex = Math.max(0, Math.min(videoData.length - 1, index));
-  currentVideoIndex = safeIndex;
+function setActiveVideo(index) {
+  if (!vrSlides.length) return;
 
-  if (videoTitleEl && videoData[safeIndex]) {
-    videoTitleEl.innerText = videoData[safeIndex].title;
+  const maxIndex = vrSlides.length - 1;
+  const safeIndex = Math.max(0, Math.min(maxIndex, index));
+  vrCurrentIndex = safeIndex;
+
+  // Play / pause video
+  vrSlides.forEach((slide, i) => {
+    const vid = slide.querySelector("video");
+    if (!vid) return;
+
+    if (i === safeIndex) {
+      vid.currentTime = 0;
+      vid.play().catch(() => {});
+    } else {
+      vid.pause();
+    }
+  });
+
+  // Cập nhật dot
+  vrDots.forEach(d => d.classList.remove("active"));
+  if (vrDots[safeIndex]) {
+    vrDots[safeIndex].classList.add("active");
   }
 
-  videoDots.forEach((d, i) => {
-    if (i === safeIndex) d.classList.add("active");
-    else d.classList.remove("active");
-  });
+  // Cập nhật title
+  if (vrTitles[safeIndex] && vrTitle) {
+    vrTitle.textContent = vrTitles[safeIndex];
+  }
 }
 
-// Khi scroll trong khung video -> xác định video nào đang active
+// Lắng nghe scroll trong khung video
 if (videoSlider) {
   videoSlider.addEventListener("scroll", () => {
     const width = videoSlider.offsetWidth || 1;
     const rawIndex = videoSlider.scrollLeft / width;
     const index = Math.round(rawIndex);
-    if (index !== currentVideoIndex) {
-      updateVideoReviewUI(index);
+
+    if (index !== vrCurrentIndex) {
+      setActiveVideo(index);
     }
   });
 }
+
+// Click dot -> scroll tới video & kích hoạt
+vrDots.forEach(dot => {
+  dot.addEventListener("click", () => {
+    const id = parseInt(dot.dataset.id, 10);
+    if (!videoSlider) return;
+
+    videoSlider.scrollTo({
+      left: id * videoSlider.offsetWidth,
+      behavior: "smooth"
+    });
+
+    setActiveVideo(id);
+  });
+});
+
+// Khởi động: chỉ chạy video đầu tiên
+setActiveVideo(0);
+
 
 // Click dot -> nhảy đúng 1 video (snap)
 videoDots.forEach(dot => {
