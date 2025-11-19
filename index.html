@@ -2252,6 +2252,34 @@ setTimeout(() => {
   vVideos[0].play();
 }, 300);
 
+/* === RANDOM CART HOT ICON (245 ↔ 365) — GIỮ 24H === */
+(function() {
+    const KEY_VALUE = "cartHotNumber";
+    const KEY_TIME = "cartHotSavedTime";
+
+    const now = Date.now();
+    const savedNumber = localStorage.getItem(KEY_VALUE);
+    const savedTime = localStorage.getItem(KEY_TIME);
+
+    function randomNumber() {
+        return Math.floor(Math.random() * (365 - 245 + 1)) + 245;
+    }
+
+    // Nếu chưa có hoặc đã hết 24h → reset
+    if (!savedNumber || !savedTime || (now - parseInt(savedTime)) > 24 * 60 * 60 * 1000) {
+
+        const newNumber = randomNumber();
+
+        localStorage.setItem(KEY_VALUE, newNumber);
+        localStorage.setItem(KEY_TIME, now.toString());
+
+        document.getElementById("cartHotIcon").textContent = newNumber + "+ đã mua 24h";
+    }
+    else {
+        // Vẫn dùng số cũ cho khách này
+        document.getElementById("cartHotIcon").textContent = savedNumber + "+ đã mua 24h";
+    }
+})();
 
 
 </script>
