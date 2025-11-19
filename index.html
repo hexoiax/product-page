@@ -777,7 +777,7 @@ textarea.form-input {
   border-radius: 0;
   box-shadow: none;
   display: flex;
-  gap: 26px;
+  gap: 10px;
 }
 
 .video-section.show {
@@ -949,7 +949,7 @@ textarea.form-input {
   background: transparent;
   box-shadow: none;
   display: flex;
-  gap: 26px;
+  gap: 10px;
   align-items: stretch;
 }
 
@@ -1119,6 +1119,82 @@ html, body {
   border-radius: 22px !important;
   object-fit: cover !important;
   display: block !important;
+}
+/* FIX HỞ MÉP VIDEO KHỐI CUỐI */
+#videoSection .video-slider {
+  overflow: hidden !important;
+  border-radius: 18px !important;
+  background: #000 !important;    /* để không hở nền trắng */
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+#videoSection .video-slide {
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+  border-radius: 18px !important;
+  background: #000 !important;
+}
+
+#videoSection video {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  border-radius: 18px !important;   /* đồng bộ cả video và container */
+  display: block !important;
+}
+
+/* RESET LẠI TOÀN BỘ */
+#videoSection .video-left,
+#videoSection .video-slider,
+#videoSection .video-slide {
+  position: relative;
+  overflow: hidden !important;
+  border-radius: 18px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: #fff !important;
+}
+
+/* VIDEO KHÔNG ĐƯỢC PHÓNG TO – GIỮ ĐÚNG 100% */
+#videoSection video {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  border-radius: 18px !important;
+  display: block !important;
+
+  margin: 0 !important;
+  transform: none !important;
+}
+.video-right {
+  padding: 0 10px !important;
+  max-width: 100% !important; /* chữ không bị bó hẹp, không lệch phải */
+}
+@media(max-width: 768px) {
+  .video-right {
+    padding: 0 6px !important;   /* cho sát hơn */
+  }
+  .video-title {
+    font-size: 14px !important;   /* co chữ lại */
+    line-height: 1.2 !important;
+  }
+}
+#videoSlider {
+  display: flex;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+#videoSlider::-webkit-scrollbar {
+  display: none;
+}
+
+.video-slide {
+  scroll-snap-align: center;
+  min-width: 100%;
 }
 
 
@@ -2119,6 +2195,65 @@ videoDots.forEach(dot => {
 // Khởi tạo UI ban đầu
 updateVideoReviewUI(0);
 });
+
+/* === Swipe trực tiếp trên video như TikTok === */
+
+const vSlider = document.getElementById("videoSlider");
+const vSlides = document.querySelectorAll("#videoSlider .video-slide");
+const vVideos = document.querySelectorAll("#videoSlider video");
+const vDots   = document.querySelectorAll(".video-dots .dot");
+
+let vIndex = 0;
+let startX = 0;
+
+// Hàm set video đang active
+function setVideo(i) {
+  if (i < 0) i = vSlides.length - 1;
+  if (i >= vSlides.length) i = 0;
+
+  vIndex = i;
+
+  // Di chuyển slider
+  vSlider.scrollTo({
+    left: vSlides[i].offsetLeft,
+    behavior: "smooth"
+  });
+
+  // Update dot
+  vDots.forEach(dot => dot.classList.remove("active"));
+  vDots[i].classList.add("active");
+
+  // Play video hiện tại / pause video khác
+  vVideos.forEach((v, idx) => {
+    if (idx === i) v.play();
+    else v.pause();
+  });
+}
+
+// Event vuốt
+vSlider.addEventListener("touchstart", (e) => {
+  startX = e.touches[0].clientX;
+});
+
+vSlider.addEventListener("touchend", (e) => {
+  const diff = startX - e.changedTouches[0].clientX;
+
+  if (diff > 40) setVideo(vIndex + 1);      // vuốt trái → next
+  else if (diff < -40) setVideo(vIndex - 1); // vuốt phải → prev
+});
+
+// Dot click
+vDots.forEach(dot => {
+  dot.onclick = () => setVideo(parseInt(dot.dataset.id));
+});
+
+// Auto-play first video
+setTimeout(() => {
+  vVideos[0].play();
+}, 300);
+
+
+
 </script>
 
 </body>
