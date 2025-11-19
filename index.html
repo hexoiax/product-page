@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script type="text/javascript" src="https://d3js.org/d3.v7.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/granim/2.0.0/granim.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -10,6 +12,7 @@
 <title>Quần Liền Ủng Cao Su 2 Lớp Chống Nước - Giữ Ấm</title>
 
 <style>
+
 :root {
   --green-main: #2ECC71;
   --green-dark: #1FA85C;
@@ -430,6 +433,7 @@ textarea.form-input {
 .review-slider {
   overflow: hidden;
   position: relative;
+  margin-bottom: 50px;
 }
 .review-track {
   display: flex;
@@ -1197,6 +1201,17 @@ html, body {
   min-width: 100%;
 }
 
+.video-text-animate {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity .45s cubic-bezier(.19,.7,.43,1),
+              transform .45s cubic-bezier(.19,.7,.43,1);
+}
+
+.video-text-animate.show {
+  opacity: 1;
+  transform: translateY(0);
+}
 
 
 
@@ -1333,8 +1348,8 @@ html, body {
     </div>
 
     <div class="gift-box">
-      🎁 Tặng 1 đôi găng tay<br>
-      ❤️ Ưu đãi 20% – số lượng có hạn
+      🎁 Tặng 1 đôi găng tay lao động<br>
+      ❤️ Khách đặt hàng lần 2 tiết kiệm thêm 10.000đ
     </div>
 
     <div class="notice">⚠ Lưu ý đặt hàng theo size chân của bạn</div>
@@ -1389,21 +1404,26 @@ html, body {
         <!-- SLIDE 1 -->
         <div class="review-slide">
           <div class="review-item">
-            <img src="https://i.pravatar.cc/80?img=1" class="review-avatar" alt="avatar 1">
+            <img src="https://ik.imagekit.io/ish7apezwl/Avatar%20%C4%90%C3%A1nh%20Gi%C3%A1%20/a%20man%20sitting%20in%20front%20of%20a....jpg?updatedAt=1763559024023&tr=c-at_max,w-300,h-300:cm-pad_resize,w-300,h-300,fo-center,bg-genfill" class="review-avatar" alt="avatar 1">
             <div class="review-body">
               <div class="review-name">Nguyễn Hoàng Minh</div>
               <div class="review-stars">★★★★★</div>
-              <div class="review-text">Ủng dày, chống nước cực tốt.</div>
-              <img src="https://ik.imagekit.io/7q6vhb7ce/A.jpg?tr=w-400" class="review-img zoom-img" alt="review 1">
+              <div class="review-text">Sản phẩm đúng màu, mặc thoải mái, nói chung là hàng ok</div>
+               <div class="review-photo-group">
+        <img src="https://p16-oec-va.ibyteimg.com/tos-maliva-i-dx0w9n1ysr-us/10a2a6034dd74f6a8b0c722c602c25f2~tplv-o3syd03w52-crop-webp:300:300.webp?dr=15592&t=555f072d&ps=933b5bde&shp=8dbd94bf&shcp=607f11de&idc=my&from=2378011839" class="review-img zoom-img" alt="review 1">
+        <img src="https://ik.imagekit.io/ish7apezwl/%E1%BA%A2nh%20%C4%91sanh%20gi%C3%A1/ec05e67b5fdc48909b2a642326dd3eeb~tplv-o3syd03w52-crop-webp:300:300.webp_dr=15592&t=555f072d&ps=933b5bde&shp=8dbd94bf&shcp=607f11de&idc=my&from=2378011839" class="review-img zoom-img" alt="review 2">
+        <img src="https://ik.imagekit.io/ish7apezwl/%E1%BA%A2nh%20%C4%91sanh%20gi%C3%A1/6ca3ea67be784be5a8efa2c1576ed3ed~tplv-o3syd03w52-crop-webp:300:300.webp_dr=15592&t=555f072d&ps=933b5bde&shp=8dbd94bf&shcp=607f11de&idc=my&from=2378011839?updatedAt=1763559819323" class="review-img zoom-img" alt="review 3">
+        <img src="https://ik.imagekit.io/ish7apezwl/%E1%BA%A2nh%20%C4%91sanh%20gi%C3%A1/cebc3a5811954ee6b6e95e14062b88ee~tplv-o3syd03w52-crop-webp:300:300.webp_dr=15592&t=555f072d&ps=933b5bde&shp=8dbd94bf&shcp=607f11de&idc=my&from=2378011839" class="review-img zoom-img" alt="review 4">
+      </div>
             </div>
           </div>
 
           <div class="review-item">
-            <img src="https://i.pravatar.cc/80?img=2" class="review-avatar" alt="avatar 2">
+            <img src="https://ik.imagekit.io/ish7apezwl/Avatar%20%C4%90%C3%A1nh%20Gi%C3%A1%20/a%20statue%20of%20a%20person.jpg?updatedAt=1763559025555&tr=c-at_max,w-300,h-300:cm-pad_resize,w-300,h-300,fo-center,bg-genfill" class="review-avatar" alt="avatar 2">
             <div class="review-body">
-              <div class="review-name">Hồng Ánh</div>
+              <div class="review-name">Phạm Nguyễn Hồng Ánh</div>
               <div class="review-stars">★★★★★</div>
-              <div class="review-text">Đi ruộng ấm chân, không bị lạnh nữa.</div>
+              <div class="review-text">SP chất lượng, người miền tây chưa ai mang quần này đi ruộng cả, có quần này đỡ ngứa bớt, shop TV nhiệt tình 1 ngàn sao</div>
             </div>
           </div>
         </div>
@@ -1411,21 +1431,26 @@ html, body {
         <!-- SLIDE 2 -->
         <div class="review-slide">
           <div class="review-item">
-            <img src="https://i.pravatar.cc/80?img=3" class="review-avatar" alt="avatar 3">
+            <img src="https://ik.imagekit.io/ish7apezwl/Avatar%20%C4%90%C3%A1nh%20Gi%C3%A1%20/Hoi%20An,%20Vietnam%20__%20_%20Ple....jpg?updatedAt=1763559021491&tr=c-at_max,w-300,h-300:cm-pad_resize,w-300,h-300,fo-center,bg-genfill" class="review-avatar" alt="avatar 3">
             <div class="review-body">
-              <div class="review-name">Đăng Quân</div>
+              <div class="review-name">Đặng Anh Quân</div>
               <div class="review-stars">★★★★★</div>
-              <div class="review-text">Đế chắc chắn, không trơn.</div>
-              <img src="https://ik.imagekit.io/7q6vhb7ce/h.jpg?tr=w-400" class="review-img zoom-img" alt="review 2">
+              <div class="review-text">Ủng quần cũng OK tốt. Chất liệu: Dẻo tốt Đặc điểm: Ủng chân có khá cứng cũng OK</div>
+              <div class="review-photo-group">
+        <img src="https://ik.imagekit.io/ish7apezwl/%E1%BA%A2nh%20%C4%91sanh%20gi%C3%A1/4836e82de0c34fadb5dd5e202ad36573~tplv-o3syd03w52-crop-webp:300:300.webp_dr=15592&t=555f072d&ps=933b5bde&shp=8dbd94bf&shcp=607f11de&idc=my&from=2378011839" class="review-img zoom-img" alt="review 1">
+        <img src="https://ik.imagekit.io/ish7apezwl/%E1%BA%A2nh%20%C4%91sanh%20gi%C3%A1/10a2a6034dd74f6a8b0c722c602c25f2~tplv-o3syd03w52-crop-webp:300:300.webp_dr=15592&t=555f072d&ps=933b5bde&shp=8dbd94bf&shcp=607f11de&idc=my&from=2378011839" class="review-img zoom-img" alt="review 2">
+        
+      </div>
             </div>
           </div>
 
           <div class="review-item">
-            <img src="https://i.pravatar.cc/80?img=4" class="review-avatar" alt="avatar 4">
+            <img src="https://ik.imagekit.io/ish7apezwl/Avatar%20%C4%90%C3%A1nh%20Gi%C3%A1%20/woman%20in%20purple%20long%20sleeve....jpg?updatedAt=1763559024474&tr=c-at_max,w-300,h-300:cm-pad_resize,w-300,h-300,fo-center,bg-genfill" class="review-avatar" alt="avatar 4">
             <div class="review-body">
               <div class="review-name">Thuý Vy</div>
               <div class="review-stars">★★★★★</div>
-              <div class="review-text">Đáng tiền lắm, giao nhanh.</div>
+              <div class="review-text">Giao hàng nhanh , hàng đẹp đúng như quảng cáo . Quần quá đẹp , nhưng lưng quần hơi chặc , lưng quần rộng 1 chút nữa là không có điểm gì chê . Chất lượng nên mua .</div>
+              <img src="https://ik.imagekit.io/ish7apezwl/%E1%BA%A2nh%20%C4%91sanh%20gi%C3%A1/fe8e15ad6cef4a7d86f0ad04916481a8~tplv-o3syd03w52-crop-webp:300:300.webp_dr=15592&t=555f072d&ps=933b5bde&shp=8dbd94bf&shcp=607f11de&idc=my&from=2378011839" class="review-img zoom-img" alt="review 1">
             </div>
           </div>
         </div>
@@ -1433,21 +1458,23 @@ html, body {
         <!-- SLIDE 3 -->
         <div class="review-slide">
           <div class="review-item">
-            <img src="https://i.pravatar.cc/80?img=5" class="review-avatar" alt="avatar 5">
+            <img src="https://ik.imagekit.io/ish7apezwl/Avatar%20%C4%90%C3%A1nh%20Gi%C3%A1%20/Earthman%20and%20his%20domestic%20p....jpg?updatedAt=1763559018047&tr=c-at_max,w-300,h-300:cm-pad_resize,w-300,h-300,fo-center,bg-genfill" class="review-avatar" alt="avatar 5">
             <div class="review-body">
-              <div class="review-name">Tấn Phát</div>
+              <div class="review-name">Huỳnh Tấn Phát</div>
               <div class="review-stars">★★★★★</div>
-              <div class="review-text">Form đẹp, nam mang thoải mái.</div>
-              <img src="https://ik.imagekit.io/7q6vhb7ce/C.jpg?tr=w-400" class="review-img zoom-img" alt="review 3">
+              <div class="review-text">Chất liệu: Tốt Shop giao đúng mẫu , sản phẩm nhận về khá ổn , đế cao su độ dày vừa phải , sản phẩm chưa đi nên chưa biết độ bền như thế nào , mẫu mã đẹp nên đánh giá shop 5 sao</div>
+               <img src="https://ik.imagekit.io/ish7apezwl/%E1%BA%A2nh%20%C4%91sanh%20gi%C3%A1/0ad6e3b0c6c141cc85b8a89a6d15f6dc~tplv-o3syd03w52-crop-webp:300:300.webp_dr=15592&t=555f072d&ps=933b5bde&shp=8dbd94bf&shcp=607f11de&idc=my&from=2378011839" class="review-img zoom-img" alt="review 1">
+        <img src="https://ik.imagekit.io/ish7apezwl/%E1%BA%A2nh%20%C4%91sanh%20gi%C3%A1/87c899299a2d41edbcbf43238a1f72fc~tplv-o3syd03w52-crop-webp:300:300.webp_dr=15592&t=555f072d&ps=933b5bde&shp=8dbd94bf&shcp=607f11de&idc=my&from=2378011839" class="review-img zoom-img" alt="review 2">
             </div>
           </div>
 
           <div class="review-item">
-            <img src="https://i.pravatar.cc/80?img=6" class="review-avatar" alt="avatar 6">
+            <img src="https://ik.imagekit.io/ish7apezwl/Avatar%20%C4%90%C3%A1nh%20Gi%C3%A1%20/Portrait%20of%20a%20young%20lady.jpg?updatedAt=1763559020496&tr=c-at_max,w-300,h-300:cm-pad_resize,w-300,h-300,fo-center,bg-genfill" class="review-avatar" alt="avatar 6">
             <div class="review-body">
-              <div class="review-name">Quỳnh Như</div>
+              <div class="review-name">Phan Thị Quỳnh Như</div>
               <div class="review-stars">★★★★★</div>
-              <div class="review-text">Mặc ấm cực, xứng đáng.</div>
+              <div class="review-text">Chất liệu ok,ăn toàn, cho shop 10₫😍😍😍</div>
+              <img src="https://ik.imagekit.io/ish7apezwl/%E1%BA%A2nh%20%C4%91sanh%20gi%C3%A1/c25f8c2d761e465a927a0d33b995b1e5~tplv-o3syd03w52-crop-webp:300:300.webp_dr=15592&t=555f072d&ps=933b5bde&shp=8dbd94bf&shcp=607f11de&idc=my&from=2378011839" class="review-img zoom-img" alt="review 1">
             </div>
           </div>
         </div>
@@ -1455,21 +1482,22 @@ html, body {
         <!-- SLIDE 4 -->
         <div class="review-slide">
           <div class="review-item">
-            <img src="https://i.pravatar.cc/80?img=7" class="review-avatar" alt="avatar 7">
+            <img src="https://ik.imagekit.io/ish7apezwl/Avatar%20%C4%90%C3%A1nh%20Gi%C3%A1%20/Nguyen%20Uyen%20My.jpg?updatedAt=1763559015477&tr=c-at_max,w-300,h-300:cm-pad_resize,w-300,h-300,fo-center,bg-genfill" class="review-avatar" alt="avatar 7">
             <div class="review-body">
-              <div class="review-name">Bích Hằng</div>
+              <div class="review-name">Trương Nguyễn Bích Hằng</div>
               <div class="review-stars">★★★★★</div>
-              <div class="review-text">Chất cao su dày, thích lắm.</div>
-              <img src="https://ik.imagekit.io/7q6vhb7ce/G.jpg?tr=w-400" class="review-img zoom-img" alt="review 4">
+              <div class="review-text">Chất liệu: Dày Đặc điểm: Mang đi nước k vào Giao hàng nhanh chóng síp bơ thân thiện lần sau sẽ ủng hộ shop tiếp 🥰🥰🥰🥰</div>
+              <img src="https://p16-oec-sg.ibyteimg.com/tos-alisg-i-aphluv4xwc-sg/f4ff286075234a6db589c6b129d81b00~tplv-aphluv4xwc-crop-webp:300:300.webp?dr=15592&t=555f072d&ps=933b5bde&shp=8dbd94bf&shcp=607f11de&idc=my&from=2378011839" class="review-img zoom-img" alt="review 4">
             </div>
           </div>
 
           <div class="review-item">
-            <img src="https://i.pravatar.cc/80?img=8" class="review-avatar" alt="avatar 8">
+            <img src="https://ik.imagekit.io/ish7apezwl/Avatar%20%C4%90%C3%A1nh%20Gi%C3%A1%20/Photo%20Sang%20Tran.jpg?updatedAt=1763559015394&tr=c-at_max,w-300,h-300:cm-pad_resize,w-300,h-300,fo-center,bg-genfill" class="review-avatar" alt="avatar 8">
             <div class="review-body">
-              <div class="review-name">Minh Tâm</div>
+              <div class="review-name">Nguyễn Thị Minh Tâm</div>
               <div class="review-stars">★★★★★</div>
-              <div class="review-text">Chống thấm cực tốt.</div>
+              <div class="review-text">Quần ủng rất dầy dặn mẫu mã đẹp hơn mong đợi, sắp tới sẽ ủng hộ shop nhiều hơn</div>
+              <img src="https://ik.imagekit.io/ish7apezwl/%E1%BA%A2nh%20%C4%91sanh%20gi%C3%A1/831e046993f34177a753a7ba44a3a6e0~tplv-aphluv4xwc-crop-webp:300:300.webp_dr=15592&t=555f072d&ps=933b5bde&shp=8dbd94bf&shcp=607f11de&idc=my&from=2378011839" class="review-img zoom-img" alt="review 4">
             </div>
           </div>
         </div>
@@ -1477,21 +1505,26 @@ html, body {
         <!-- SLIDE 5 -->
         <div class="review-slide">
           <div class="review-item">
-            <img src="https://i.pravatar.cc/80?img=9" class="review-avatar" alt="avatar 9">
+            <img src="https://ik.imagekit.io/ish7apezwl/Avatar%20%C4%90%C3%A1nh%20Gi%C3%A1%20/a%20man%20in%20a%20black%20jacket%20is%20....jpg?updatedAt=1763559020364&tr=c-at_max,w-300,h-300:cm-pad_resize,w-300,h-300,fo-center,bg-genfill" class="review-avatar" alt="avatar 9">
             <div class="review-body">
-              <div class="review-name">Thanh Sơn</div>
+              <div class="review-name">Trương Quang Tùng</div>
               <div class="review-stars">★★★★★</div>
-              <div class="review-text">Đi rẫy ấm chân, không mỏi.</div>
-              <img src="https://ik.imagekit.io/7q6vhb7ce/E.jpg?tr=w-400" class="review-img zoom-img" alt="review 5">
+              <div class="review-text">Ship nhanh , sản phảm mẫu mã màu sắc như hình . From giày chuẩn Chất liệu: Da bóng Đặc điểm: Tốt Độ bền: Tốt</div>
+              <img src="https://ik.imagekit.io/ish7apezwl/%E1%BA%A2nh%20%C4%91sanh%20gi%C3%A1/efb445a5f3144a0d9d08e7fe1b32fa90~tplv-aphluv4xwc-crop-webp:300:300.webp_dr=15592&t=555f072d&ps=933b5bde&shp=8dbd94bf&shcp=607f11de&idc=my&from=2378011839" class="review-img zoom-img" alt="review 5">
             </div>
           </div>
 
           <div class="review-item">
-            <img src="https://i.pravatar.cc/80?img=10" class="review-avatar" alt="avatar 10">
+            <img src="https://ik.imagekit.io/ish7apezwl/Avatar%20%C4%90%C3%A1nh%20Gi%C3%A1%20/lotus.jpg?updatedAt=1763559016249&tr=c-at_max,w-300,h-300:cm-pad_resize,w-300,h-300,fo-center,bg-genfill" class="review-avatar" alt="avatar 10">
             <div class="review-body">
-              <div class="review-name">Trà My</div>
+              <div class="review-name">An Nguyễn</div>
               <div class="review-stars">★★★★★</div>
-              <div class="review-text">Sản phẩm như mô tả.</div>
+              <div class="review-text">Chất dày dặn,nặng tay,nghe ng nhà bảo dùng ok,nhưng quần bự chà bá kéo lên tới ngực còn đc á</div>
+              <div class="review-photo-group">
+        <img src="https://ik.imagekit.io/ish7apezwl/%E1%BA%A2nh%20%C4%91sanh%20gi%C3%A1/31037845d9694c2f960e613f8c88a57b~tplv-aphluv4xwc-crop-webp:300:300.webp_dr=15592&t=555f072d&ps=933b5bde&shp=8dbd94bf&shcp=607f11de&idc=my&from=2378011839" class="review-img zoom-img" alt="review 1">
+        <img src="https://ik.imagekit.io/ish7apezwl/%E1%BA%A2nh%20%C4%91sanh%20gi%C3%A1/990cf74dca2f413087b8f6118c97af18~tplv-aphluv4xwc-crop-webp:300:300.webp_dr=15592&t=555f072d&ps=933b5bde&shp=8dbd94bf&shcp=607f11de&idc=my&from=2378011839" class="review-img zoom-img" alt="review 2">
+        
+      </div>
             </div>
           </div>
         </div>
@@ -1932,7 +1965,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   /* ==================== NOTICE BAR TỰ ĐỘNG ==================== */
   const noticeMessages = [
-    "🎉  ƯU ĐÃI GIỜ VÀNG GIẨM 35%",
+    "🎉  GIỜ VÀNG ƯU ĐÃI 35%",
     "🚚 ƯU ĐÃI ĐẶC BIỆT • FREE SHIP TOÀN QUỐC",
     "🧤 NHẬN QUÀ THIẾT THỰC • ĐÔI GĂNG TAY LAO ĐỘNG",
     "💚 XIN CẢM ƠN QUÝ KHÁCH ĐÃ ĐỒNG HÀNH"
@@ -1988,6 +2021,26 @@ document.addEventListener("DOMContentLoaded", function () {
     "Bảo Ngọc", "Thành Nhân", "Kiều My", "Hữu Phát", "Gia Hân"
   ];
   let lastName = null;
+const vietAvatars = [
+  "https://ik.imagekit.io/ish7apezwl/a%20person%20holding%20a%20ball.jpg?updatedAt=1763556712804&tr=c-at_max,w-300,h-300",
+  "https://ik.imagekit.io/ish7apezwl/woman%20in%20purple%20dress%20holdi....jpg?updatedAt=1763556710624&tr=c-at_max,w-300,h-300",
+  "https://ik.imagekit.io/ish7apezwl/a%20black%20and%20white%20photo%20of%20....jpg?updatedAt=1763556710066&tr=c-at_max,w-300,h-300",
+  "https://ik.imagekit.io/ish7apezwl/a%20woman%20standing%20on%20a%20set%20o....jpg?updatedAt=1763556708921&tr=c-at_max,w-300,h-300",
+  "https://ik.imagekit.io/ish7apezwl/a%20man%20and%20a%20woman%20sitting%20o....jpg?updatedAt=1763556708115&tr=c-at_max,w-300,h-300",
+  "https://ik.imagekit.io/ish7apezwl/a%20woman%20with%20a%20hat%20on%20her%20h....jpg?updatedAt=1763556707318&tr=c-at_max,w-300,h-300",
+  "https://ik.imagekit.io/ish7apezwl/Flower%20rose.jpg?updatedAt=1763556706150&tr=c-at_max,w-300,h-300",
+  "https://ik.imagekit.io/ish7apezwl/Afternoon%20Weekend.jpg?updatedAt=1763556704666&tr=c-at_max,w-300,h-300",
+  "https://ik.imagekit.io/ish7apezwl/Vietnamese%20flag%20atop%20a%20tower%20.jpg?updatedAt=1763556703257&tr=c-at_max,w-300,h-300",
+  "https://ik.imagekit.io/ish7apezwl/a%20group%20of%20people%20walking%20d....jpg?updatedAt=1763556702581&tr=c-at_max,w-300,h-300",
+  "https://ik.imagekit.io/ish7apezwl/a%20little%20girl%20standing%20in%20f....jpg?updatedAt=1763556701551&tr=c-at_max,w-300,h-300",
+  "https://ik.imagekit.io/ish7apezwl/Source:%20www.hthaostudio.com....jpg?updatedAt=1763556700423&tr=c-at_max,w-300,h-300",
+  "https://ik.imagekit.io/ish7apezwl/Statue%20of%20Ho%20Chi%20Minh%20in%20fr....jpg?updatedAt=1763556698505&tr=c-at_max,w-300,h-300",
+  "https://ik.imagekit.io/ish7apezwl/H%E1%BB%93%20T%C3%A2y%20m%E1%BB%99t%20bu%E1%BB%95i%20chi%E1%BB%81u.jpg?updatedAt=1763556699553&tr=c-at_max,w-300,h-300",
+  "https://ik.imagekit.io/ish7apezwl/a%20woman%20holding%20a%20fan%20in%20fr....jpg?updatedAt=1763556492057&tr=c-at_max,w-300,h-300",
+  "https://ik.imagekit.io/ish7apezwl/sea-5427775_1280.jpg?updatedAt=1763556426149&tr=c-at_max,w-300,h-300",
+  "https://ik.imagekit.io/ish7apezwl/tet-7744999_1280.jpg?updatedAt=1763555930611&tr=c-at_max,w-300,h-300"
+];
+
 
   function randomDelay(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min) * 1000;
@@ -1998,30 +2051,46 @@ document.addEventListener("DOMContentLoaded", function () {
     setTimeout(showPurchasePopup, delay);
   }
 
-  function showPurchasePopup() {
-    if (orderPopup.classList.contains("active")) {
-      scheduleNextPopup();
-      return;
-    }
+let isPopupShowing = false;
 
-    let name;
-    do {
-      name = names[Math.floor(Math.random() * names.length)];
-    } while (name === lastName);
-    lastName = name;
-    purchaseName.textContent = name;
+function showPurchasePopup() {
+  // Nếu popup đang hiển thị → KHÔNG được random lại
+  if (isPopupShowing) return;
 
-    purchaseAvatar.src = `https://i.pravatar.cc/80?img=${Math.floor(Math.random() * 50) + 10}`;
-
-    purchasePopup.classList.add("show");
-    setTimeout(() => {
-      purchasePopup.classList.remove("show");
-    }, 4000);
-
+  // Nếu popup đặt hàng thật đang mở → bỏ qua
+  if (orderPopup.classList.contains("active")) {
     scheduleNextPopup();
+    return;
   }
 
-  setTimeout(showPurchasePopup, 2500);
+  isPopupShowing = true; // khóa
+
+  // Random tên không trùng
+  let name;
+  do {
+    name = names[Math.floor(Math.random() * names.length)];
+  } while (name === lastName);
+  lastName = name;
+  purchaseName.textContent = name;
+
+  // Random avatar 1 lần duy nhất
+  purchaseAvatar.src =
+    vietAvatars[Math.floor(Math.random() * vietAvatars.length)];
+
+  // Hiện popup
+  purchasePopup.classList.add("show");
+
+  // Tắt popup → mở khóa → chạy lần tiếp theo
+  setTimeout(() => {
+    purchasePopup.classList.remove("show");
+    isPopupShowing = false; // mở khóa
+    scheduleNextPopup();
+  }, 4000);
+}
+
+
+setTimeout(showPurchasePopup, 2500);
+
 
   /* ==================== RATING LIQUID CLICK ==================== */
   const ratingLiquid = document.getElementById("rating-liquid");
@@ -2101,9 +2170,9 @@ const vrDots   = document.querySelectorAll(".video-dots .dot");
 const vrTitle  = document.getElementById("videoTitle");
 
 const vrTitles = [
-  "Khách TikTok Review Sản Phẩm",
   "Trải nghiệm thực tế ngoài đồng",
-  "Review thật – không booking"
+  "Khách TikTok Review Sản Phẩm",
+  "Chia Sẻ Quần Ủng Cùng Người Thân"
 ];
 
 // Tắt autoplay & dừng tất cả video lúc đầu
@@ -2280,6 +2349,29 @@ setTimeout(() => {
         document.getElementById("cartHotIcon").textContent = savedNumber + "+ đã mua 24h";
     }
 })();
+gsap.registerPlugin(ScrollTrigger);
+
+// Tìm tất cả video-slide trong khối video
+gsap.utils.toArray("#videoSection .video-slide").forEach((slide, i) => {
+
+  // Animation mượt khi vuốt tới slide
+  gsap.fromTo(slide,
+    { scale: 0.92, opacity: 0.0 },
+    {
+      scale: 1,
+      opacity: 1,
+      duration: 0.8,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: slide,
+        start: "top 85%",
+        end: "top 40%",
+        scrub: true
+      }
+    }
+  );
+
+});
 
 
 </script>
