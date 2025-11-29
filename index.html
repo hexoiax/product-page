@@ -152,7 +152,7 @@ html, body {
   display: flex;
   gap: 12px;
   align-items: center;
-  margin-bottom: 16px;
+  margin-bottom: 6px;
 }
 .final-price {
   font-size: 42px;
@@ -775,7 +775,7 @@ textarea.form-input {
 
 /* SAFE BOTTOM SPACE */
 .safe-bottom-space {
-  height: 80px;
+  height: 20px;
 }
 
 /* FADE SCROLL */
@@ -1231,7 +1231,26 @@ html, body {
   opacity: 1;
   transform: translateY(0);
 }
+.best-seller-badge {
+  position: absolute;
+  bottom: 0;
+  right: 0;
 
+  background: linear-gradient(90deg, #ff7a00, #ff4e00);
+  color: #fff;
+  padding: 10px 22px;
+  font-size: 15px;
+  font-weight: 800;
+
+  /* 🎯 BO DUY NHẤT 1 GÓC – GIỐNG Y HÌNH MẪU */
+  border-top-left-radius: 38px;   /* bán nguyệt */
+  border-bottom-left-radius: 0;   /* không cong */
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+
+  z-index: 999;
+  pointer-events: none;
+}
 
 
 </style>
@@ -1266,6 +1285,7 @@ html, body {
 
   <!-- SLIDER -->
   <div class="carousel-wrapper">
+    <div class="best-seller-badge">Sản phẩm bán chạy</div>
     <div id="cartHotIcon">288+ đã mua 24h</div>
     <div class="loop-carousel">
       <div class="loop-track" id="track">
@@ -1329,11 +1349,14 @@ html, body {
 
   <!-- PRODUCT INFO -->
   <div class="product-info">
+    <div class="price-box">
+      <div class="final-price">159.000đ</div>
+      <div class="original-price">227.000đ</div>
+      <div class="discount-red">-30%</div>
+    </div>
 
-    <div class="badge">★ Best Seller • Sản phẩm bán chạy</div>
-
-    <h1 style="color:#064e3b; font-size:26px; margin:0 0 4px 0;">
-      Quần Liền Ủng 2 Lớp Cao Su – Chống Nước Tuyệt Đối – Đi Bùn Nước Bẩn Không Thấm Chân
+    <h1 style="color:#064e3b; font-size:18px; margin:0 0 4px 0;">
+      Quần Liền Ủng 2 Lớp Cao Su - Cao Cấp – Chống Nước Tuyệt Đối – Đi Bùn Nước Bẩn Không Thấm Chân
     </h1>
 
     <!-- Rating liquid -->
@@ -1348,18 +1371,14 @@ html, body {
     <!-- FLASH SALE -->
     <div id="flash-sale" class="flash-sale-box">
       <div class="fs-left">
-        🔥 ƯU ĐÃI GIỜ VÀNG GIẢM 35%
+        🔥 ƯU ĐÃI GIỜ VÀNG GIẢM 30%
         <div class="fs-sub">Kết thúc sau:</div>
       </div>
       <div id="countdown" class="fs-count">--:--:--</div>
     </div>
 
     <!-- PRICE BOX -->
-    <div class="price-box">
-      <div class="final-price">159.000đ</div>
-      <div class="original-price">245.000đ</div>
-      <div class="discount-red">-35%</div>
-    </div>
+    
 
     <div class="gift-box">
       🎁 Tặng 1 đôi găng tay lao động<br>
@@ -1637,6 +1656,9 @@ html, body {
     <textarea id="address" placeholder="Địa chỉ giao hàng" class="form-input"></textarea>
 
     <label style="font-weight:bold;margin-bottom:6px;display:block;font-size:15px;">Chọn Size</label>
+    <div style="font-size:13px;color:#555;margin:-2px 0 8px 0;font-style:italic;">
+  * Hãy chọn theo size giày của bạn
+</div>
     <div id="size-container" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;"></div>
 
     <label style="font-weight:bold;margin-bottom:6px;display:block;font-size:15px;">Số lượng</label>
@@ -1649,7 +1671,7 @@ html, body {
 
     <div id="price-summary" style="display:none;background:#fff;border-radius:14px;padding:14px 16px;box-shadow:0 8px 20px rgba(15,23,42,0.12);margin-bottom:18px;">
       <div style="font-size:15px;margin-bottom:6px;">Tạm tính: <b id="subtotal">0₫</b></div>
-      <div style="font-size:15px;margin-bottom:6px;color:#e53935;">Giảm giá 35%: <b id="discount">-0₫</b></div>
+      <div style="font-size:15px;margin-bottom:6px;color:#e53935;">Giảm giá 30%: <b id="discount">-0₫</b></div>
       <div style="font-size:17px;font-weight:bold;margin-bottom:6px;">Tổng thanh toán: <span id="total" style="color:#16a34a;">0₫</span></div>
       <div style="color:#16a34a;font-size:14px;">🚚 Free Ship toàn quốc</div>
     </div>
@@ -1757,7 +1779,7 @@ document.addEventListener("DOMContentLoaded", function () {
   /* ==================== FORM + PRICE + SUBMIT ==================== */
   const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwCpEIrkWo_aDGQI3Tek6gKeg2VOTWASXDe59AMRK15kazytqIMrMMAmaYbZ9ynVYmsNA/exec";
 
-  const basePrice = 244615;
+  const basePrice = 227000;
   const sizes = ["36","37","38","39","40","41","42"];
   const qtys = ["1","2","3","4","5","6","7","8","9","10"];
 
@@ -1819,7 +1841,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function updatePrice() {
     if (!selectedQty) return;
     const subtotal = basePrice * selectedQty;
-    const discount = subtotal * 0.35;
+    const discount = subtotal * 0.3;
     const total = subtotal - discount;
 
     subtotalEl.textContent = subtotal.toLocaleString("vi-VN") + "₫";
@@ -1977,7 +1999,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   /* ==================== NOTICE BAR TỰ ĐỘNG ==================== */
   const noticeMessages = [
-    "🎉  GIỜ VÀNG ƯU ĐÃI 35%",
+    "🎉  GIỜ VÀNG ƯU ĐÃI 30%",
     "🚚 ƯU ĐÃI ĐẶC BIỆT • FREE SHIP TOÀN QUỐC",
     "🧤 NHẬN QUÀ THIẾT THỰC • ĐÔI GĂNG TAY LAO ĐỘNG",
     "💚 XIN CẢM ƠN QUÝ KHÁCH ĐÃ ĐỒNG HÀNH"
@@ -2398,6 +2420,22 @@ document.getElementById("submit-btn").addEventListener("click", function () {
         currency: 'VND'
     });
 });
+
+const reviewSection = document.getElementById("reviewSection");
+const mainOrderBtn = document.getElementById("openPopup");
+
+function triggerReviewSection() {
+  const rect = mainOrderBtn.getBoundingClientRect();
+
+  // Nếu nút ĐẶT HÀNG NGAY lọt vào màn hình → show khối review
+  if (rect.top < window.innerHeight) {
+    reviewSection.classList.add("show");
+    window.removeEventListener("scroll", triggerReviewSection); // chỉ chạy 1 lần
+  }
+}
+
+window.addEventListener("scroll", triggerReviewSection);
+
 
 </script>
 
