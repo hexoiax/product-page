@@ -1851,41 +1851,53 @@ document.addEventListener("DOMContentLoaded", function () {
     priceSummary.style.display = "block";
   }
 
-  document.getElementById("submit-btn").onclick = () => {
-    const name = document.getElementById("name").value.trim();
-    const phone = document.getElementById("phone").value.trim();
-    const address = document.getElementById("address").value.trim();
-    const note = document.getElementById("note").value.trim();
+ document.getElementById("submit-btn").onclick = async () => {
+  const name = document.getElementById("name").value.trim();
+  const phone = document.getElementById("phone").value.trim();
+  const address = document.getElementById("address").value.trim();
+  const note = document.getElementById("note").value.trim();
 
-    if (!name) return alert("Vui lòng nhập tên khách hàng");
-    if (!phone) return alert("Vui lòng nhập số điện thoại");
-    if (!address) return alert("Vui lòng nhập địa chỉ");
-    if (selectedSizes.length === 0) return alert("Vui lòng chọn size");
-    if (!selectedQty) return alert("Vui lòng chọn số lượng");
+  if (!name) return alert("Vui lòng nhập tên khách hàng");
+  if (!phone) return alert("Vui lòng nhập số điện thoại");
+  if (!address) return alert("Vui lòng nhập địa chỉ");
+  if (selectedSizes.length === 0) return alert("Vui lòng chọn size");
+  if (!selectedQty) return alert("Vui lòng chọn số lượng");
+
+  try {
+    for (const size of selectedSizes) {
+      await fetch(SCRIPT_URL, {
+        method: "POST",
+        body: new URLSearchParams({
+          action: "createOrder",
+          customerName: name,
+          phone,
+          address,
+          productCode: "QX",
+          size,
+          quantity: selectedQty,
+          note
+        })
+      });
+    }
 
     orderPopup.classList.remove("active");
     successPopup.style.display = "flex";
 
-    fetch(SCRIPT_URL, {
-      method: "POST",
-      body: new URLSearchParams({
-        name, phone, address,
-        sizes: selectedSizes.join(", "),
-        quantity: selectedQty,
-        note
-      })
-    }).catch(() => {});
+  } catch (err) {
+    alert("Gửi đơn bị lỗi, vui lòng thử lại");
+    return;
+  }
 
-    setTimeout(() => {
-      successPopup.style.display = "none";
-      document.querySelectorAll(".form-input").forEach(e => { e.value = ""; });
-      selectedSizes = [];
-      selectedQty = null;
-      document.querySelectorAll(".size-chip").forEach(c => c.classList.remove("selected"));
-      qtySelected.textContent = "Chọn số lượng";
-      priceSummary.style.display = "none";
-    }, 3500);
-  };
+  setTimeout(() => {
+    successPopup.style.display = "none";
+    document.querySelectorAll(".form-input").forEach(e => { e.value = ""; });
+    selectedSizes = [];
+    selectedQty = null;
+    document.querySelectorAll(".size-chip").forEach(c => c.classList.remove("selected"));
+    qtySelected.textContent = "Chọn số lượng";
+    priceSummary.style.display = "none";
+  }, 3500);
+};
 
   /* ==================== TAB SWITCH ==================== */
   const tabBtns = document.querySelectorAll(".tab-btn");
