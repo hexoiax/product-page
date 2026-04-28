@@ -1851,11 +1851,17 @@ document.addEventListener("DOMContentLoaded", function () {
     priceSummary.style.display = "block";
   }
 
- document.getElementById("submit-btn").onclick = async () => {
+ let isSubmittingOrder = false;
+
+document.getElementById("submit-btn").onclick = () => {
+  if (isSubmittingOrder) return;
+  isSubmittingOrder = true;
+
   const name = document.getElementById("name").value.trim();
   const phone = document.getElementById("phone").value.trim();
   const address = document.getElementById("address").value.trim();
   const note = document.getElementById("note").value.trim();
+  const btn = document.getElementById("submit-btn");
 
   if (!name) return alert("Vui lòng nhập tên khách hàng");
   if (!phone) return alert("Vui lòng nhập số điện thoại");
@@ -1863,30 +1869,27 @@ document.addEventListener("DOMContentLoaded", function () {
   if (selectedSizes.length === 0) return alert("Vui lòng chọn size");
   if (!selectedQty) return alert("Vui lòng chọn số lượng");
 
-  try {
-    for (const size of selectedSizes) {
-      await fetch(SCRIPT_URL, {
-        method: "POST",
-        body: new URLSearchParams({
-          action: "createOrder",
-          customerName: name,
-          phone,
-          address,
-          productCode: "QX",
-          size,
-          quantity: selectedQty,
-          note
-        })
-      });
-    }
+  btn.disabled = true;
+  btn.textContent = "Đã gửi đơn...";
 
-    orderPopup.classList.remove("active");
-    successPopup.style.display = "flex";
-
-  } catch (err) {
-    alert("Gửi đơn bị lỗi, vui lòng thử lại");
-    return;
+  for (const size of selectedSizes) {
+    fetch(SCRIPT_URL, {
+      method: "POST",
+      body: new URLSearchParams({
+        action: "createOrder",
+        customerName: name,
+        phone,
+        address,
+        productCode: "QX",
+        size,
+        quantity: selectedQty,
+        note
+      })
+    }).catch(err => console.log("Send order error:", err));
   }
+
+  orderPopup.classList.remove("active");
+  successPopup.style.display = "flex";
 
   setTimeout(() => {
     successPopup.style.display = "none";
@@ -1896,6 +1899,10 @@ document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll(".size-chip").forEach(c => c.classList.remove("selected"));
     qtySelected.textContent = "Chọn số lượng";
     priceSummary.style.display = "none";
+
+    isSubmittingOrder = false;
+    btn.disabled = false;
+    btn.textContent = "Gửi đơn hàng";
   }, 3500);
 };
 
